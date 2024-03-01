@@ -38,10 +38,11 @@ class LoginController extends Controller
         }
 
         if (request('password') != env('RESTAURANT_ADMIN_PASSWORD')) {
-            return redirect()->route('login_form')->with('error_message', 'Incorrect Password!');
+            return redirect()->route('login_form')->with(['error_message' => 'Incorrect Password!', 'username' => request('username')]);
         }
 
         setcookie('token', env('RESTAURANT_TOKEN'), time() + 3600, '/');
+        setcookie('username', request('username'), time() + 3600, '/');
 
         return redirect()->route('admin_panel');
     }
