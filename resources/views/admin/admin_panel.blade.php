@@ -8,6 +8,7 @@
     #admin-panel {
         display:flex;
         flex-direction:row;
+        background-color: #3c6e71;
     }
 
     #admin-panel-options-list {

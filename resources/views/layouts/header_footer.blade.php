@@ -9,7 +9,7 @@
 	<style>
         footer {
             color:#fff;
-            background-color: #483c46;
+            background-color: #212529;
             height:50px;
             display:flex;
             flex-direction:row;

@@ -20,5 +20,4 @@ Route::get('/',[RestaurantController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'show_login_form'])->name('login_form');
 Route::post('/login',[LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-// Route::get('/admin',[AdminController::class, 'show_admin_panel'])->name('admin_panel');
 Route::get('/admin/{option}', [AdminController::class, 'show_option'])->name('admin_panel_option');
