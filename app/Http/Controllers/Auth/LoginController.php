@@ -17,7 +17,7 @@ class LoginController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function show_login_form() {
-        return view('login_form');
+        return view('login_form',  ['page_title' => 'Login - Restaurant App']);
     }
 
 
@@ -44,7 +44,7 @@ class LoginController extends Controller
         setcookie('token', env('RESTAURANT_TOKEN'), time() + 3600, '/');
         setcookie('username', request('username'), time() + 3600, '/');
 
-        return redirect()->route('admin_panel');
+        return redirect()->route('admin_panel_option', ['option' => 'home']);
     }
 
 

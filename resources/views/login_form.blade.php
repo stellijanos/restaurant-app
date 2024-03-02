@@ -15,7 +15,7 @@
         justify-content:center;
         align-items:center;
         width:100%;
-        height:calc(100vh - 50px);
+        height:calc(100vh - 106px);
     }
 
     #login-form form {
