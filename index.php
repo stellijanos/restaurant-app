@@ -3,6 +3,12 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+if ($_SERVER['REQUEST_URI'] == '/restaurant-app/index.php') {
+    // Redirect to the root URL
+    header('Location: /restaurant-app/');
+    exit;
+}
+
 define('LARAVEL_START', microtime(true));
 
 /*
