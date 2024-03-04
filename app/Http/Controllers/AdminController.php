@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -9,26 +10,73 @@ class AdminController extends Controller
 
 
     /**
-     * Display the admin panel.
+     * Display the home page of the admin panel.
      * 
-     * This methods cheks if the token cookie matches the expected value.
-     * If the token is invalid or missing, it redirects the user to logout.
-     * Otherwise, it displays the admin panel view.
+     * This methods returns a view that represents the home page of the admin panel.
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_option($option) {
-
-        if (($_COOKIE['token'] ?? '') != env('RESTAURANT_TOKEN')) {
-            return redirect()->route('logout');
-        }
-
-        $options = ['home' => 'Home', 'dashboard' => 'Dashboard', 'orders' => 'Orders', 'menu_items' => 'Menu Items', 'customers' => 'Customers'];
+    public function show_home() {
+        return view('admin.admin_panel', [
+            'page_title' => 'Admin Panel - Restaurant App'
+        ]);
+    }
 
 
-        if (!array_key_exists($option,$options)) {
-            return abort(404);
-        }
-        return view('admin.admin_panel', ['page_title' => 'Admin Panel - Restaurant App', 'option' => $option, 'options' => $options]);
+    /**
+     * Display the orders page of the admin panel.
+     * 
+     * This method returns a view that represents the orders page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show_orders() {
+        return view('admin.admin_panel',[
+            'page_title' => 'Admin Panel - Restaurant App'
+        ]);
+    }
+
+ 
+    /**
+     * Display the customers page of the admin panel.
+     * 
+     * This method returns a view that represents the customers page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show_customers() {
+        return view('admin.admin_panel',[
+            'page_title' => 'Admin Panel - Restaurant App'
+        ]);
+    }
+
+
+    /**
+     * Display the menu cateogories page of the admin panel.
+     * 
+     * This method returns a view that represents the menu categories page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show_menu_categories() {
+        return view('admin.admin_panel', [
+            'page_title' => 'Admin Panel - Restaurant App', 
+            'categories' => Category::all()
+        ]);
+    }
+
+
+    /**
+     * Display the menu items page of the admin panel.
+     * 
+     * This method returns a view that represents the menu items page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show_menu_items() {
+        return view('admin.admin_panel',[
+            'page_title' => 'Admin Panel - Restaurant App'
+        ]);
     }
 }
+

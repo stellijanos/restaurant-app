@@ -5,9 +5,8 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Allow direct access to specific files in those folders
-    RewriteRule ^public/images/(menu|profile)/([^/]+)$ - [L]
-
+    # Allow direct access to any file in any folder within public
+    RewriteRule ^public/([^/]+/)*[^/]+\.[^/]+$ - [L]
 
     # Redirect all requests to index.php in the public folder
     RewriteCond %{REQUEST_URI} !^/index\.php$

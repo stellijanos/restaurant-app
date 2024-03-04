@@ -36,26 +36,30 @@
 
 </style>
 
+
+
+
 <div id="login-form">
-
-      
-
-    <form action="{{route('login_form')}}" method="POST">
+    <form action="{{route('login')}}" method="POST">
         
         <div class="mb-3">
             <h1 style="color:darkgrey">Login portal</h1>
         </div>
 
-        @if(session()->has('error_message')) 
-            <div id="error-message"><p >{{session('error_message')}}</p></div>
+        @if($errors->any())
+            <div id="error-message">
+                    @foreach($errors->all() as $error)
+                        <p>{{$error}}</p>
+                    @endforeach
+            </div>
         @endif
 
         @csrf
 
         <div class="form-floating mb-3">
         
-            <input type="text" class="form-control" id="floatingInput" name="username"  placeholder="Username" value="{{session()->has('username') ? session('username') : '' }}" required>
-            <label for="floatingInput">Username</label>
+            <input type="email" class="form-control" id="floatingInput" name="email"  placeholder="Email" value="{{session()->has('email') ? session('email') : '' }}" required>
+            <label for="floatingInput">Email</label>
         </div>
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>

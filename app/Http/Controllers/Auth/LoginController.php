@@ -33,18 +33,15 @@ class LoginController extends Controller
      */
     public function login() {
 
-        if (request('username') != env('RESTAURANT_ADMIN_USERNAME')) {
-            return redirect()->route('login_form')->with('error_message', 'Incorrect Username!');
+        validator(request()->all(), [
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ])->validate();
+
+        if(auth()->attempt(request()->only('email', 'password'))) {
+            return redirect()->route('admin_panel_home');
         }
-
-        if (request('password') != env('RESTAURANT_ADMIN_PASSWORD')) {
-            return redirect()->route('login_form')->with(['error_message' => 'Incorrect Password!', 'username' => request('username')]);
-        }
-
-        setcookie('token', env('RESTAURANT_TOKEN'), time() + 3600, '/');
-        setcookie('username', request('username'), time() + 3600, '/');
-
-        return redirect()->route('admin_panel_option', ['option' => 'home']);
+        return redirect()->back()->withErrors(['email' => 'Invalid Credentials']);
     }
 
 
@@ -58,12 +55,11 @@ class LoginController extends Controller
      */
     public function logout() {
 
-        setcookie('token', '', time()-3600, '/');
+        auth()->logout();
 
-        return redirect()->route('login_form');
+        return redirect()->route('login');
     }
 
 }
-
 
 
