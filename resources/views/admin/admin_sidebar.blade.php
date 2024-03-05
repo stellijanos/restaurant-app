@@ -19,7 +19,6 @@ $options = [
     </p>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-    
         @foreach($options as $key => $value)
             <li class="nav-item">
                 <a href="{{route('admin_panel_'.$key)}}" class="nav-link text-white" aria-current="page" id="admin-{{$key}}">{{$value}}</a>
@@ -42,3 +41,4 @@ $options = [
     </div>
 </div>
 
+<script src="{{asset('/public/js/admin/script.js')}}"></script>

@@ -8,4 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(getLastURLPart());
     const option = document.getElementById('admin-' + getLastURLPart());
     option.classList.add('active'); 
+
+
+    const editButtons = document.querySelectorAll('[id^="btn_category_"]');
+
+    const editCategory = () => {
+
+    }
+
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            let input = document.getElementById(button.id.replace("btn_", ""));
+            input.disabled = false;
+        });
+    });
 });
