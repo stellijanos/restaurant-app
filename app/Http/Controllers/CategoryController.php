@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -21,6 +22,7 @@ class CategoryController extends Controller
     public function create() {
         $category = new Category();
         $category->name = request()->get('category_name');
+        $category->menu_position = Category::count()+1;
         $category->save();
 
         return redirect()->route('admin_panel_menu_categories')->with('create_message', 'Category added successfully!');
@@ -35,7 +37,6 @@ class CategoryController extends Controller
             echo  request()->get('menu-position-'.$category->menu_position);
             $category->name = request()->get('name') ?? $category->name;
             $category->show_on_menu = request()->has('show') ? 1 : 0;
-            $category->menu_position = request()->get('menu-position-'.$category->menu_position) ?? $category->menu_position;
             $category->save();
             // echo $category->menu_position;
             // return redirect()->route('admin_panel_menu_categories')->with('message');
@@ -47,6 +48,8 @@ class CategoryController extends Controller
     public function delete($id) {
         try {
             $category = Category::findOrFail($id);
+            $menu_position = $category->menu_position;
+            DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
             $category->delete();
             return redirect()->route('admin_panel_menu_categories')->with('message');
         } catch (ModelNotFoundException $e) {
@@ -61,6 +64,25 @@ class CategoryController extends Controller
         print_r($data);
 
         // return redirect()->route('admin_panel_menu_categories')->with('message');
+    }
+
+    public function update_category_patch($id) {
+        print_r(request()->all());
+
+        try {
+            $category = Category::findOrFail($id);
+
+            $otherCategory = Category::findOrFail(request()->get('prev'));
+            [$category->menu_position, $otherCategory->menu_position] = [$otherCategory->menu_position,  $category->menu_position];
+
+            $category->save();
+            $otherCategory->save();
+
+            return redirect()->route('admin_panel_menu_categories')->with('message', 'Moved successfully!');
+
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 }
 

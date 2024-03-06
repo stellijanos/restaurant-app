@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/admin/menu_categories/{id}', [CategoryController::class, 'update'])->name('update_category');
     Route::post('/admin.menu_categories', [CategoryController::class, 'update_all'])->name('update_all_categories');
     Route::delete('/admin/menu_categories/{id}', [CategoryController::class, 'delete'])->name('delete_category');
+
+    Route::patch('/admin/menu_categories/{id}', [CategoryController::class, 'update_category_patch'])->name('update_category_patch');
 });
 
 

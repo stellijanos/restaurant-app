@@ -85,7 +85,7 @@
         <form action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="category-{{$category->id}}-{{$category->menu_position}}">
             @csrf
             <div class="menu-category-block">
-                {{$loop->index+1}}.
+                {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
                 <div class="menu-name-block">
                     <input type="text" name="name"  id="category_{{$category->id}}" value="{{$category->name}}" disabled>
                     <button type="button" class="btn btn-secondary" id="btn_category_{{$category->id}}">Edit</button>
@@ -100,40 +100,27 @@
                     
                     @if($loop->index >= 1)
 
-                        <form action="{{route('update_category',['id'=>$category->id])}}" method="POST">
+                        <form action="{{route('update_category_patch',['id'=>$category->id])}}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <input type="hidden" name="" value="{{$categories[$loop->index-1]->id}}">
-                            
-                    </form>
-
-
+                            <input type="hidden" name="prev" value="{{$categories[$loop->index-1]->id}}">
+                            <button type="submit" class="btn btn-warning">UP</button>
+                        </form>
+                    @else 
+                        <button type="button" class="btn btn-secondary" disabled>UP</button>
+                    @endif 
+                    @if($loop->index < count($categories)-1)
+                        <form action="{{route('update_category_patch', ['id'=>$category->id])}}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <input type="hidden" name="prev" value="{{$categories[$loop->index+1]->id}}">
+                            <button type="submit" class="btn btn-warning">DOWN</button>
+                        </form>
+                    @else 
+                        <button type="button" class="btn btn-secondary" disabled>DOWN</button>
                     @endif
-
-                    @if($category->menu_position < count($categories))
-
-
-                    @endif
-                    
-                    <input type="hidden" name="position" id="menu-position-{{$category->menu_position}}" value="{{$category->menu_position}}">
-                    <button 
-                        type="button" 
-                        id="up-{{$category->id}}-{{$category->menu_position}}" 
-                        class="btn btn-warning" 
-                        onclick="moveUp({{$category->id}},{{$category->menu_position}})"
-                        {{$category->menu_position == 1 ? 'disabled' : ''}}
-                        >UP
-                    </button>
-                    <button 
-                        type="button" 
-                        id="down-{{$category->id}}-{{$category->menu_position}}" 
-                        class="btn btn-warning" 
-                        onclick="moveDown({{$category->id}},{{$category->menu_position}})"
-                        {{$category->menu_position == count($categories) ? 'disabled' : ''}}
-                        >DOWN
-                    </button>
                 </div>
-                <form action="{{route('delete_category', ['id' => $category->id])}}">
+                <form action="{{route('delete_category', ['id' => $category->id])}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -141,30 +128,3 @@
             </div>
     @endforeach
 </div>
-
-<script>
-
-    const moveUp = (id, position) => { 
-        const position_int = parseInt(position); 
-        document.getElementById('menu-position-'+ position).value = position_int - 1;
-        document.getElementById('menu-position-'+ (position_int - 1)).value = position_int; 
-
-        const item1 = document.getElementById('category-' + id + '-' + position);
-        const item2 = item1.previousElementSibling;
-
-    
-        item1.submit();
-        item2.submit();
-    
-    
-    }
-
-    const moveDown = (id, position) => {
-        const item = document.getElementById('category-' + id + '-' + position);
-        const nextItemId = item.nextElementSibling.id;
-        console.log(nextItemId); 
-    }
-
-</script>
-
-
