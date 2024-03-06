@@ -12,14 +12,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const editButtons = document.querySelectorAll('[id^="btn_category_"]');
 
-    const editCategory = () => {
+    function handleClick(event) {
+        const inputId = this.previousElementSibling.id;
+        const input = document.getElementById(inputId);
 
+        input.disabled = false;
+        input.style.color="#000";
     }
-
+    
     editButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            let input = document.getElementById(button.id.replace("btn_", ""));
-            input.disabled = false;
-        });
+        button.addEventListener('click', handleClick, false);
     });
+
+
+
 });

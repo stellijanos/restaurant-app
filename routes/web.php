@@ -33,5 +33,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Route::get('/admin/{option}', [AdminController::class, 'show_option'])->name('admin_panel_option');
     Route::post('/admin/menu_categories', [CategoryController::class, 'create']);
-
+    Route::post('/admin/menu_categories/{id}', [CategoryController::class, 'update'])->name('update_category');
+    Route::post('/admin.menu_categories', [CategoryController::class, 'update_all'])->name('update_all_categories');
+    Route::delete('/admin/menu_categories/{id}', [CategoryController::class, 'delete'])->name('delete_category');
 });
+
+
