@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/admin/orders', [AdminController::class, 'show_orders'])->name('admin_panel_orders');
     Route::get('/admin/customers', [AdminController::class, 'show_customers'])->name('admin_panel_customers');
-    Route::get('/admin/menu_categories', [AdminController::class, 'show_menu_categories'])->name('admin_panel_menu_categories');
+    Route::get('/admin/menu_categories', [CategoryController::class, 'show_menu_categories'])->name('admin_panel_menu_categories');
     Route::get('/admin/menu_items', [AdminController::class, 'show_menu_items'])->name('admin_panel_menu_items');
 
     // Route::get('/admin/{option}', [AdminController::class, 'show_option'])->name('admin_panel_option');

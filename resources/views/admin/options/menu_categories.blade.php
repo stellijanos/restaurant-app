@@ -70,8 +70,7 @@
         @csrf
         <input type="text" name="category_name" placeholder="Enter category name" id="input-category">
         <button class="btn btn-success" type="submit" id="input-category-button">Add</button>
-    </form><h1>|</h1>
-    <button type="submit" class="btn btn-primary" onclick="submit_all_forms()">Save changes</button>
+    </form>
 
     @if(session()->has('create_message'))
         <h4>{{session()->get('create_message')}}</h4>
@@ -82,7 +81,7 @@
 
 <div id="category-listing" class="overflow-auto">
     @foreach($categories as $category) 
-        <form action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="category-{{$category->id}}-{{$category->menu_position}}">
+        <form action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="form-category-{{$category->id}}">
             @csrf
             <div class="menu-category-block">
                 {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
@@ -94,6 +93,7 @@
                     <input class="form-check-input" type="checkbox" value="" name="show" id="flexCheckDefault-{{$category->id}}" {{ $category->show_on_menu == 1 ? "checked" : ""}}>
                     <label for="flexCheckDefault-{{$category->id}}">Show in menu</label>
                 </div>
+                <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
                 <div class="menu-position-block">
                     <p>Move on menu list: </p>

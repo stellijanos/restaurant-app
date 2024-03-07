@@ -1,3 +1,10 @@
+
+
+// add eventlisteners to forms to track the modifications
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const getLastURLPart = () => {
         var path = window.location.pathname;
@@ -5,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return parts.pop();
     }
 
-    console.log(getLastURLPart());
+    // console.log(getLastURLPart());
     const option = document.getElementById('admin-' + getLastURLPart());
     option.classList.add('active'); 
 
@@ -25,5 +32,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
+    
 });

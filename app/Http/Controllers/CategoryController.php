@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
 
+
+
+    /**
+     * Display the menu cateogories page of the admin panel.
+     * 
+     * This method returns a view that represents the menu categories page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show_menu_categories() {
+        return view('admin.admin_panel', [
+            'page_title' => 'Admin Panel - Restaurant App', 
+            'categories' => Category::orderBy('menu_position')->get()
+        ]);
+    }
+
+
+
     /**
      * Create a category.
      * 
@@ -39,7 +57,7 @@ class CategoryController extends Controller
             $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
             // echo $category->menu_position;
-            // return redirect()->route('admin_panel_menu_categories')->with('message');
+            return redirect()->route('admin_panel_menu_categories')->with('message');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
