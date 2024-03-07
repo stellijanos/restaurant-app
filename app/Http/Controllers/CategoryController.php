@@ -38,6 +38,13 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function create() {
+
+        $rules = [
+            'category_name' => 'required|string|min:1|max:64'
+        ];
+
+        request()->validate($rules);
+
         $category = new Category();
         $category->name = request()->get('category_name');
         $category->menu_position = Category::count()+1;
@@ -47,45 +54,49 @@ class CategoryController extends Controller
     }
 
 
+
+    /**
+     * Update a category
+     * 
+     * This method updated an existing category with the provided Id.
+     * It validates the incoming request to ensure the 'name' field is provided and meets the specified criteria.
+     * If the category is found, its name and 'show_on_menu' attribute are updated based on the request.
+     * After updating the category, the user is redirected to the admin panel menu categories page.
+     * 
+     * @param int $id The Id of the category to update
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id) {
 
-        try {
+        request()->validate([
+            'name' => 'required|string|min:1|max:64'
+        ]);
 
+        try {
             $category = Category::findOrFail($id);
-            echo  request()->get('menu-position-'.$category->menu_position);
-            $category->name = request()->get('name') ?? $category->name;
+            $category->name = request()->get('name');
             $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
-            // echo $category->menu_position;
             return redirect()->route('admin_panel_menu_categories')->with('message');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
     }
 
-    public function delete($id) {
-        try {
-            $category = Category::findOrFail($id);
-            $menu_position = $category->menu_position;
-            DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
-            $category->delete();
-            return redirect()->route('admin_panel_menu_categories')->with('message');
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        }
-    }
 
-    public function update_all() {
 
-        $data = request()->all();
-
-        print_r($data);
-
-        // return redirect()->route('admin_panel_menu_categories')->with('message');
-    }
-
+    /**
+     * Update category positions.
+     * 
+     * This method updates the positions of two categories.
+     * It finds the categories with the provided Id's. 
+     * It swaps their 'menu_position' attributes.
+     * After updateing the positions, it redirects the user to the admin panel menu categories page.
+     * 
+     * @param int $id The id of one of the categories to update
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update_category_patch($id) {
-        print_r(request()->all());
 
         try {
             $category = Category::findOrFail($id);
@@ -102,6 +113,32 @@ class CategoryController extends Controller
             abort(404);
         }
     }
-}
 
+
+
+    /**
+     * Delete a category.
+     * 
+     * This method deletes a category with the provided Id.
+     * It first attempts to find the category using its Id.
+     * Then it updates the 'menu_position' of categories with a higher position than the deleted category.
+     * After updating the menu positions, it deletes the category.
+     * Finally, it redirects the user to the admin panel menu categories page.
+     * 
+     * @param int $id The Id of the category to delete
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id) {
+        try {
+            $category = Category::findOrFail($id);
+            $menu_position = $category->menu_position;
+            DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
+            $category->delete();
+            return redirect()->route('admin_panel_menu_categories')->with('message');
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
+}
 

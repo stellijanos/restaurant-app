@@ -32,7 +32,7 @@
     @include('admin.admin_sidebar')
     
     <div id="admin-panel-option">
-        @include('admin.options.'.$option)
+        @include('admin.options.'.$option.'.index')
     </div>
 
 </div>
