@@ -1,21 +1,3 @@
-
-<style>
-    #menu-items-header,  #form-add-menu-item{
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-    }
-
-    #form-add-menu-item {
-        justify-content:space-between;
-        gap:1rem;
-    }
-
-    #category-listing {
-        max-height:calc(100vh - 240px);
-    }
-</style>
-
 <div id="menu-items-header">
     <h1>Menu items |</h1>
 
@@ -32,5 +14,3 @@
         <button type="submit" class="btn btn-primary" style="width=100px">Add</button>
     </form>
 </div>
-
-
