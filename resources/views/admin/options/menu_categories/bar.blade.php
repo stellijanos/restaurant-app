@@ -1,6 +1,6 @@
 <div id="menu-categories-bar">
     <h1>Menu categories |</h1>
-    <form action="{{route('admin_panel_menu_categories')}}" method="POST">
+    <form action="{{route('create_menu_category')}}" method="POST">
         @csrf
         <input type="text" name="category_name" placeholder="Enter category name" id="input-category">
         <button class="btn btn-success" type="submit" id="input-category-button">Add</button>

@@ -1,35 +1,51 @@
 
 
-@foreach($foods as $food) 
-    <form action="{{route('update_food', ['id' => $food->id])}}" method="POST" id="form-food-{{$food->id}}">
-        @csrf
-        @method('PUT')
-        <div class="menu-food-block">
-            {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
+<style>
+    .menu-category-block {
+        background-color:rgba(211, 211, 211, 0.6);
+        margin:10px;
+        padding:10px;
+        justify-content:space-between;
+    }
 
-           
+    .menu-category-form-block, .menu-category-position-block{
+        gap:1rem;
+    }
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" name="show" {{ $food->show_on_menu == 1 ? "checked" : ""}}>
-                <label for="flexCheckDefault-{{$food->id}}">Show in menu</label>
-            </div>
+    .menu-category-block, .menu-category-name-block, .menu-category-form-block, .menu-category-position-block {
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+    }
 
-            <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
-            <div class="menu-position-block">
-                <p>Move on menu list: </p>
-                @include($source.'up_button')
-                @include($source.'down_button')
-            </div>
-            
-            <form action="{{route('delete_category', ['id' => $food->id])}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
 
-        </div>
-@endforeach
+    .menu-category-name-block>input {
+        height:40px;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .menu-category-name-block>button {
+        height:40px;
+        border-radius:0 5px 5px 0;
+    }
+
+
+    .menu-items-block {
+        display:flex;
+        flex-direction:column;
+    }
+
+
+    .form-add-menu-item {
+        display:flex;
+        flex-direction:row;
+        margin:10px;
+        gap:1rem;
+    }
+
+
+</style>
+
 
 @foreach($foods as $food) 
     <div class="menu-item-block">
@@ -41,13 +57,11 @@
             @include($source.'show_in_menu')
             <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
-        <div class="menu-category-position-block">
-            <p style="margin-top:10px">Move on menu list: </p>
+        <div class="menu-item-position-block">
+            <o>Move on menu list: </p>
             @include($source.'up_button')
             @include($source.'down_button')
         </div>
         @include($source.'delete_button')
     </div>
 @endforeach
-
-

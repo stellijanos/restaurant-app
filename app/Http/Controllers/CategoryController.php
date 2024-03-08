@@ -19,7 +19,7 @@ class CategoryController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_menu_categories() {
+    public function show() {
         return view('admin.admin_panel', [
             'page_title' => 'Admin Panel - Restaurant App', 
             'categories' => Category::orderBy('menu_position')->get()
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         $category->menu_position = Category::count()+1;
         $category->save();
 
-        return redirect()->route('admin_panel_menu_categories')->with('create_message', 'Category added successfully!');
+        return redirect()->route('admin_panel_show_menu_categories')->with('create_message', 'Category added successfully!');
     }
 
 
@@ -74,7 +74,7 @@ class CategoryController extends Controller
             $category->name = request()->get('name') ?? $category->name;
             $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
-            return redirect()->route('admin_panel_menu_categories');
+            return redirect()->route('admin_panel_show_menu_categories');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -93,7 +93,7 @@ class CategoryController extends Controller
      * @param int $id The id of one of the categories to update
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update_category_patch($id) {
+    public function patch($id) {
 
         try {
             $category = Category::findOrFail($id);
@@ -104,7 +104,7 @@ class CategoryController extends Controller
             $category->save();
             $otherCategory->save();
 
-            return redirect()->route('admin_panel_menu_categories')->with('message', 'Moved successfully!');
+            return redirect()->route('admin_panel_show_menu_categories')->with('message', 'Moved successfully!');
 
         } catch (ModelNotFoundException $e) {
             abort(404);
@@ -131,7 +131,7 @@ class CategoryController extends Controller
             $menu_position = $category->menu_position;
             DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
             $category->delete();
-            return redirect()->route('admin_panel_menu_categories')->with('message');
+            return redirect()->route('admin_panel_show_menu_categories')->with('message');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

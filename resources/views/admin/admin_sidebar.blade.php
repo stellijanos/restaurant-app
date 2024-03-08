@@ -21,7 +21,7 @@ $options = [
     <ul class="nav nav-pills flex-column mb-auto">
         @foreach($options as $key => $value)
             <li class="nav-item">
-                <a href="{{route('admin_panel_'.$key)}}" class="nav-link text-white" aria-current="page" id="admin-{{$key}}">{{$value}}</a>
+                <a href="{{route('admin_panel_show_'.$key)}}" class="nav-link text-white" aria-current="page" id="admin-{{$key}}">{{$value}}</a>
             </li>
         @endforeach
     </ul>

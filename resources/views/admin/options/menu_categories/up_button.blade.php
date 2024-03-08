@@ -1,5 +1,5 @@
 @if($loop->index >= 1)
-    <form action="{{route('update_category_patch',['id'=>$category->id])}}" method="POST">
+    <form action="{{route('patch_menu_category',['id'=>$category->id])}}" method="POST">
         @csrf
         @method('PATCH')
         <input type="hidden" name="prev" value="{{$categories[$loop->index-1]->id}}">

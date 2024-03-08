@@ -1,6 +1,5 @@
 
 
-<?php $source = 'admin.options.menu_categories.';?>
 
 
 <style>
@@ -53,7 +52,7 @@
 @foreach($categories as $category) 
     <div class="menu-category-block">
         {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
-        <form class="menu-category-form-block" action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="form-category-{{$category->id}}">
+        <form class="menu-category-form-block" action="{{route('update_menu_category', ['id' => $category->id])}}" method="POST" id="form-category-{{$category->id}}">
             @csrf
             @method('PUT')
             @include($source.'edit_category_name')

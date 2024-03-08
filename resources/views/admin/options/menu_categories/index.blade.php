@@ -1,12 +1,15 @@
 
 <link rel="stylesheet" href="{{asset('/public/css/admin/menu_categories.css')}}">
 
-@include('admin.options.menu_categories.bar')
+<?php $source = 'admin.options.menu_categories.';?>
+
+
+@include($source.'bar')
 
 <div id="category-listing" class="overflow-auto">
     @if(count($categories) === 0)
-        @include('admin.options.menu_categories.no_categories')
+        @include($source.'no_categories')
     @else
-        @include('admin.options.menu_categories.list_all')
+        @include($source.'list_all')
     @endif
 </div>
