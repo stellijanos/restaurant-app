@@ -1,4 +1,8 @@
 
+<?php $source = 'admin.options.menu_items.';?>
+
+
+
 <style>
     #menu-items-header,  #form-add-menu-item{
         display:flex;
@@ -17,12 +21,12 @@
 </style>
 
 
-@include('admin.options.edit_menu.bar')
+@include($source.'bar')
 
 <div id="category-listing" class="overflow-auto">
     @if(count($foods) === 0)
-        @include('admin.options.edit_menu.no_menu_items')
+        @include($source.'no_menu_items')
     @else
-        @include('admin.options.edit_menu.list_all')
+        @include($source.'list_all')
     @endif
 </div>

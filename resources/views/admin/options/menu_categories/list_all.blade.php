@@ -1,33 +1,71 @@
+
+
+<?php $source = 'admin.options.menu_categories.';?>
+
+
+<style>
+    .menu-category-block {
+        background-color:rgba(211, 211, 211, 0.6);
+        margin:10px;
+        padding:10px;
+        justify-content:space-between;
+    }
+
+    .menu-category-form-block, .menu-category-position-block{
+        gap:1rem;
+    }
+
+    .menu-category-block, .menu-category-name-block, .menu-category-form-block, .menu-category-position-block {
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+    }
+
+
+    .menu-category-name-block>input {
+        height:40px;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .menu-category-name-block>button {
+        height:40px;
+        border-radius:0 5px 5px 0;
+    }
+
+
+    .menu-items-block {
+        display:flex;
+        flex-direction:column;
+    }
+
+
+    .form-add-menu-item {
+        display:flex;
+        flex-direction:row;
+        margin:10px;
+        gap:1rem;
+    }
+
+
+</style>
+
+
 @foreach($categories as $category) 
-    <form action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="form-category-{{$category->id}}">
-        @csrf
-        @method('PUT')
-        <div class="menu-category-block">
-            {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
-
-            <div class="menu-name-block">
-                <input type="text" name="name"  id="category_{{$category->id}}" value="{{$category->name}}" disabled>
-                <button type="button" class="btn btn-secondary" id="btn_category_{{$category->id}}">Edit</button>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" name="show" {{ $category->show_on_menu == 1 ? "checked" : ""}}>
-                <label for="flexCheckDefault-{{$category->id}}">Show in menu</label>
-            </div>
-
+    <div class="menu-category-block">
+        {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
+        <form class="menu-category-form-block" action="{{route('update_category', ['id' => $category->id])}}" method="POST" id="form-category-{{$category->id}}">
+            @csrf
+            @method('PUT')
+            @include($source.'edit_category_name')
+            @include($source.'show_in_menu')
             <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
-            <div class="menu-position-block">
-                <p>Move on menu list: </p>
-                @include('admin.options.menu_categories.up_button')
-                @include('admin.options.menu_categories.down_button')
-            </div>
-            
-            <form action="{{route('delete_category', ['id' => $category->id])}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-
+        </form>
+        <div class="menu-category-position-block">
+            <p style="margin-top:10px">Move on menu list: </p>
+            @include($source.'up_button')
+            @include($source.'down_button')
         </div>
+        @include($source.'delete_button')
+    </div>
 @endforeach
+

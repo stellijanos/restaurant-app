@@ -28,6 +28,14 @@ class FoodController extends Controller
 
 
     public function create() {
+
+
+        request()->validate([
+            'name' => 'required|string|min:1|max:64',
+            'price' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|min:0'
+        ]);
+
         $food = new Food();
 
         $food->name = request()->get('name') ?? '';
@@ -37,6 +45,6 @@ class FoodController extends Controller
 
         $food->save();
 
-        return redirect('admin_panel_menu_items')->with('message', 'Menu item added successfully!');
+        return redirect('admin_panel_edit_menu')->with('message', 'Menu item added successfully!');
     }
 }

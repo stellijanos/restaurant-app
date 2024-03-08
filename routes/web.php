@@ -32,16 +32,17 @@ Route::group(['middleware' => 'auth'], function() {
     
     
     Route::get('/admin/menu_categories', [CategoryController::class, 'show_menu_categories'])->name('admin_panel_menu_categories');
-    Route::post('/admin/menu_categories', [CategoryController::class, 'create']);
-    Route::put('/admin/menu_categories/{id}', [CategoryController::class, 'update'])->name('update_category');
-    Route::patch('/admin/menu_categories/{id}', [CategoryController::class, 'update_category_patch'])->name('update_category_patch');
-    Route::delete('/admin/menu_categories/{id}', [CategoryController::class, 'delete'])->name('delete_category');
+
+    Route::post('/admin/categories', [CategoryController::class, 'create']);
+    Route::put('/admin/categories/{id}', [CategoryController::class, 'update'])->name('update_category');
+    Route::patch('/admin/categories/{id}', [CategoryController::class, 'update_category_patch'])->name('update_category_patch');
+    Route::delete('/admin/categories/{id}', [CategoryController::class, 'delete'])->name('delete_category');
 
 
     Route::get('/admin/menu_items', [FoodController::class, 'show_menu_items'])->name('admin_panel_menu_items');
     Route::post('/admin/menu_items', [FoodController::class, 'create'])->name('admin_panel_create_menu_item');
 
-    Route::get('/admin/edit_menu', [AdminController::class, 'show_edit_menu'])->name('admin_panel_edit_menu');
+    // Route::get('/admin/edit_menu', [AdminController::class, 'show_edit_menu'])->name('admin_panel_edit_menu');
 });
 
 

@@ -68,16 +68,13 @@ class CategoryController extends Controller
      */
     public function update($id) {
 
-        request()->validate([
-            'name' => 'required|string|min:1|max:64'
-        ]);
-
+    
         try {
             $category = Category::findOrFail($id);
-            $category->name = request()->get('name');
+            $category->name = request()->get('name') ?? $category->name;
             $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
-            return redirect()->route('admin_panel_menu_categories')->with('message');
+            return redirect()->route('admin_panel_menu_categories');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
