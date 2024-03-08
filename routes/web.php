@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/admin/menu_items', [FoodController::class, 'show_menu_items'])->name('admin_panel_menu_items');
     Route::post('/admin/menu_items', [FoodController::class, 'create'])->name('admin_panel_create_menu_item');
+
+    Route::get('/admin/edit_menu', [AdminController::class, 'show_edit_menu'])->name('admin_panel_edit_menu');
 });
 
 

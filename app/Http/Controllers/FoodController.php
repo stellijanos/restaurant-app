@@ -21,7 +21,8 @@ class FoodController extends Controller
     public function show_menu_items() {
         return view('admin.admin_panel',[
             'page_title' => 'Admin Panel - Restaurant App',
-            'categories' => Category::orderBy('name', 'asc')->get()
+            'categories' => Category::orderBy('name')->get(),
+            'foods' => Food::orderBy('menu_position')->get()
         ]);
     }
 

@@ -6,6 +6,7 @@ $options = [
             'customers' => 'Customers',
             'menu_categories' => 'Menu Categories',
             'menu_items' => 'Menu Items',
+            'edit_menu' => 'Edit Menu'
         ];
 ?>
 

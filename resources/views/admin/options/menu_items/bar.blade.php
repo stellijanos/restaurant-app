@@ -14,3 +14,11 @@
         <button type="submit" class="btn btn-primary" style="width=100px">Add</button>
     </form>
 </div>
+
+@if($errors->any())
+    <div style="background-color:#ff7f7f; color:#000; padding:10px;">
+        @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </div>
+@endif

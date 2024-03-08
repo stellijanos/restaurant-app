@@ -17,6 +17,12 @@
 </style>
 
 
-@include('admin.options.menu_items.bar')
+@include('admin.options.edit_menu.bar')
 
-
+<div id="category-listing" class="overflow-auto">
+    @if(count($foods) === 0)
+        @include('admin.options.edit_menu.no_menu_items')
+    @else
+        @include('admin.options.edit_menu.list_all')
+    @endif
+</div>
