@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Food;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class FoodController extends Controller
@@ -22,7 +23,8 @@ class FoodController extends Controller
         return view('admin.admin_panel',[
             'page_title' => 'Admin Panel - Restaurant App',
             'categories' => Category::orderBy('name')->get(),
-            'foods' => Food::orderBy('menu_position')->get()
+            'foods' => Food::orderBy('menu_position')->get(),
+            'option' => 'menu_items'
         ]);
     }
 
@@ -64,5 +66,29 @@ class FoodController extends Controller
 
     }
 
-    
+
+
+    public function get_by_category() {
+
+        $id = request()->get('category') ?? 0;
+
+        try {
+            $category = Category::findOrFail($id);
+            return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $category->id]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
+
+    public function show_by_category($id) {
+        return view('admin.admin_panel',[
+            'page_title' => 'Admin Panel - Restaurant App',
+            'categories' => Category::orderBy('name')->get(),
+            'foods' => Food::where('category_id', $id)->orderBy('menu_position')->get(),
+            'option' => 'menu_items',
+            'category_name' => Category::find($id)->name
+        ]);
+    }
+
 }

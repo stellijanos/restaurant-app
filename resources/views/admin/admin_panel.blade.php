@@ -24,9 +24,9 @@
 
 <div id="admin-panel">
 
-    <?php 
-        $uri = explode("/", $_SERVER['REQUEST_URI']);
-        $option = end($uri);
+    <?php   
+        // $uri = explode("/", $_SERVER['REQUEST_URI']);
+        // $option = end($uri);
     ?>
 
     @include('admin.admin_sidebar')

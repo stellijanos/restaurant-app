@@ -45,6 +45,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::patch('/admin/menu_items/{id}', [FoodController::class, 'patch'])->name('patch_menu_item');
     Route::delete('/admin/menu_items/{id}', [FoodController::class, 'delete'])->name('delete_menu_item');
 
+
+    Route::post('/admin/category/menu_items', [FoodController::class, 'get_by_category'])->name('admin_panel_get_menu_items_by_category');
+    Route::get('/admin/category/{id}/menu_items',[FoodController::class, 'show_by_category'])->name('admin_panel_show_menu_items_by_category');
+
 });
 
 
