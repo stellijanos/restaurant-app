@@ -1,64 +1,21 @@
 
-
-<style>
-    .menu-category-block {
-        background-color:rgba(211, 211, 211, 0.6);
-        margin:10px;
-        padding:10px;
-        justify-content:space-between;
-    }
-
-    .menu-category-form-block, .menu-category-position-block{
-        gap:1rem;
-    }
-
-    .menu-category-block, .menu-category-name-block, .menu-category-form-block, .menu-category-position-block {
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-    }
-
-
-    .menu-category-name-block>input {
-        height:40px;
-        border-radius: 5px 0 0 5px;
-    }
-
-    .menu-category-name-block>button {
-        height:40px;
-        border-radius:0 5px 5px 0;
-    }
-
-
-    .menu-items-block {
-        display:flex;
-        flex-direction:column;
-    }
-
-
-    .form-add-menu-item {
-        display:flex;
-        flex-direction:row;
-        margin:10px;
-        gap:1rem;
-    }
-
-
-</style>
-
-
 @foreach($foods as $food) 
     <div class="menu-item-block">
         {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
-        <form class="menu-item-form-block" action="{{route('update_food', ['id' => $food->id])}}" method="POST" id="form-food-{{$food->id}}">
+        <form class="menu-item-form-block" action="{{route('update_menu_item', ['id' => $food->id])}}" method="POST" id="form-food-{{$food->id}}">
             @csrf
             @method('PUT')
-            @include($source.'edit_food_name')
+            <div class="menu-item-input-values">
+                @include($source.'edit_food_name')
+                @include($source.'edit_food_price')
+                @include($source.'edit_food_weight')
+                @include($source.'edit_food_category')
+            </div>
             @include($source.'show_in_menu')
             <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
         <div class="menu-item-position-block">
-            <o>Move on menu list: </p>
+            <p style="margin-top:10px">Move on menu list: </p>
             @include($source.'up_button')
             @include($source.'down_button')
         </div>

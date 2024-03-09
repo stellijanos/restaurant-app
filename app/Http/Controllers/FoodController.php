@@ -30,11 +30,12 @@ class FoodController extends Controller
     public function create() {
 
 
-        request()->validate([
-            'name' => 'required|string|min:1|max:64',
-            'price' => 'required|numeric|min:0',
-            'weight' => 'required|numeric|min:0'
-        ]);
+        // request()->validate([
+        //     'name' => 'required|string|min:1|max:64',
+        //     'price' => 'required|numeric|min:0',
+        //     'weight' => 'required|numeric|min:0',
+        //     'category' => 'required|numeric|min:1'
+        // ]);
 
         $food = new Food();
 
@@ -45,6 +46,23 @@ class FoodController extends Controller
 
         $food->save();
 
-        return redirect('admin_panel_edit_menu')->with('message', 'Menu item added successfully!');
+        return redirect()->route('admin_panel_show_menu_items')->with('message', 'Menu item added successfully!');
     }
+
+
+
+    public function update($id) {
+
+    }
+
+    public function patch($id) {
+
+    }
+
+
+    public function delete($id) {
+
+    }
+
+    
 }

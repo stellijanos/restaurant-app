@@ -39,7 +39,7 @@ class LoginController extends Controller
         ])->validate();
 
         if(auth()->attempt(request()->only('email', 'password'))) {
-            return redirect()->route('admin_panel_home');
+            return redirect()->route('admin_panel_show_home');
         }
         return redirect()->back()->withErrors(['email' => 'Invalid Credentials']);
     }

@@ -41,8 +41,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/admin/menu_items', [FoodController::class, 'show_menu_items'])->name('admin_panel_show_menu_items');
     Route::post('/admin/menu_items', [FoodController::class, 'create'])->name('create_menu_item');
+    Route::put('/admin/menu_items/{id}', [FoodController::class, 'update'])->name('update_menu_item');
+    Route::patch('/admin/menu_items/{id}', [FoodController::class, 'patch'])->name('path_menu_item');
+    Route::delete('/admin/menu_items/{id}', [FoodController::class, 'delete'])->name('delete_menu_item');
 
-    // Route::get('/admin/edit_menu', [AdminController::class, 'show_edit_menu'])->name('admin_panel_edit_menu');
 });
 
 
