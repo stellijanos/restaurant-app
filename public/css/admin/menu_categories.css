@@ -19,6 +19,7 @@
 #category-listing {
     /* background-color:blue; */
     max-height:calc(100vh - 240px);
+    user-select:none;
 }
 
 /* .menu-category-block {

@@ -1,5 +1,5 @@
 @if($loop->index < count($foods)-1)
-    <form action="{{route('update_food_patch', ['id'=>$food->id])}}" method="POST">
+    <form action="{{route('patch_menu_item', ['id'=>$food->id])}}" method="POST">
         @csrf
         @method('PATCH')
         <input type="hidden" name="prev" value="{{$foods[$loop->index+1]->id}}">

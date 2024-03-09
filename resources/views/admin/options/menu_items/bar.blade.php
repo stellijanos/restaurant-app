@@ -4,9 +4,9 @@
 
     #form-add-menu-item{
         display:flex;
-        flex-direction:row;
-        align-items:center;
-        justify-content:space-between;
+        flex-direction:column;
+        align-items:space-between;
+        justify-content:center;
         gap:1rem;
     }
 
@@ -25,26 +25,19 @@
         height:40px;
         margin-top:-5px;
     }
+
 </style>
 
 
 <div id="menu-items-bar">
     <h1>Menu items |</h1>
-    <form action="{{route('create_menu_item')}}" class="form-add-menu-item" method="post">
-        @csrf
-        <input type="text" class="input-menu-item" name="name" placeholder="Name of the product">
-        <input type="number" class="input-menu-item" name="price" placeholder="Price" pattern="\d*\.?\d*" min="0">
-        <input type="number" class="input-menu-item" name="weight" placeholder="weight" pattern="\d*\.?\d*" min="0">
-        <select name="category" class="input-menu-item">
-            <option value="0" selected>Choose category</option>
-            @foreach($categories as $category)
-                <option value="{{$category->id}}">{{$category->name}}</option>
-            @endforeach
-        </select>
-        <button class="btn btn-success" type="submit" id="input-category-button">Add </button>
-
-    </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
+        Add new menu item
+    </button>
 </div>
+
+@include($source.'create_menu_item')
+
 
 @if($errors->any())
     <div style="background-color:#ff7f7f; color:#000; padding:10px;">
