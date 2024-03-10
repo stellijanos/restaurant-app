@@ -53,6 +53,11 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
         Add new menu item
     </button>
+
+    @if(session()->has('create_message'))
+        <h4>| {{session()->get('create_message')}}</h4>
+    @endif
+
 </div>
 
 @include($source.'create_menu_item')

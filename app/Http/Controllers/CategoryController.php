@@ -129,8 +129,8 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $menu_position = $category->menu_position;
-            DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
             $category->delete();
+            DB::update("UPDATE categories set menu_position = menu_position - 1 WHERE menu_position > ? ", [$menu_position]);
             return redirect()->route('admin_panel_show_menu_categories')->with('message');
         } catch (ModelNotFoundException $e) {
             abort(404);

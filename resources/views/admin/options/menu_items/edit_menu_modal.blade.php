@@ -3,6 +3,7 @@
         <div class="modal-content">
             <form action="{{route('update_menu_item', ['id' => $food->id])}}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="edit-menu-item-label">Edit menu item</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,11 +14,11 @@
                         <label for="menu-item-name">Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="price" value="{{$food->price}}" id="menu-item-price" placeholder="Price" pattern="\d*\.?\d*" min="0">
+                        <input type="number" class="form-control" name="price" value="{{$food->price}}" id="menu-item-price" placeholder="Price" step=".01" min="0">
                         <label for="floatingInput">Price</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="weight" value="{{$food->weight}}" placeholder="Weight (in g)" pattern="\d*\.?\d*" min="0">
+                        <input type="number" class="form-control" name="weight" value="{{$food->weight}}" placeholder="Weight (in g)" step=".01" min="0">
                         <label for="floatingInput">Weight (in g)</label>
                     </div>
                     <select name="category" class="form-select form-select-lg">
