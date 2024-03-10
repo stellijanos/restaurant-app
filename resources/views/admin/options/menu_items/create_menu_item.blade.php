@@ -13,11 +13,11 @@
                         <label for="menu-item-name">Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="price" id="menu-item-price" placeholder="Price" pattern="\d*\.?\d*" min="0">
+                        <input type="number" class="form-control" name="price" id="menu-item-price" placeholder="Price" step=".01" min="0">
                         <label for="floatingInput">Price</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="weight" placeholder="Weight (in g)" pattern="\d*\.?\d*" min="0">
+                        <input type="number" class="form-control" name="weight" placeholder="Weight (in g)" step=".01" min="0">
                         <label for="floatingInput">Weight (in g)</label>
                     </div>
                     <select name="category" class="form-select form-select-lg">

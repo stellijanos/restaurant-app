@@ -17,30 +17,34 @@ class FoodController extends Controller
      * 
      * This method returns a view that represents the menu items page of the admin panel.
      * 
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
    
 
     public function create() {
 
 
-        // request()->validate([
-        //     'name' => 'required|string|min:1|max:64',
-        //     'price' => 'required|numeric|min:0',
-        //     'weight' => 'required|numeric|min:0',
-        //     'category' => 'required|numeric|min:1'
-        // ]);
+        request()->validate([
+            'name' => 'required|string|min:1|max:64',
+            'price' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|min:0',
+            'category' => 'required|numeric|min:1'
+        ]);
 
         $food = new Food();
 
         $food->name = request()->get('name') ?? '';
         $food->price = request()->get('price') ?? 0;
         $food->weight = request()->get('weight') ?? 0;
-        $food->category_id = request()->get('category') ??Category::get()->first()->id;
+        $food->category_id = request()->get('category') ?? Category::get()->first()->id;
+        
+        $nr_of_category = Food::where('category_id', $food->category_id)->count();
+
+        $food->menu_position = $nr_of_category + 1;
 
         $food->save();
             
-        return redirect()->route('admin_panel_show_menu_items')->with('message', 'Menu item added successfully!');
+        return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $food->category_id])->with('message', 'Menu item added successfully!');
     }
 
     public function show_menu_items() {

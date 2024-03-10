@@ -14,6 +14,8 @@
         display:flex;
         flex-direction:row;
         align-items:center;
+        margin:10px;
+        gap:1rem;
     }
 
     .input-menu-item {
@@ -26,22 +28,28 @@
         margin-top:-5px;
     }
 
+    #menu-items-bar>select {
+        width:200px;
+    }
+
 </style>
 
+<script>
+    const getMenuItemsByCategory = select => {
+        const url = select.value;
+        if (url !== "") {
+            window.location.href= url;
+        }
+    }
+</script>
 
 <div id="menu-items-bar">
-    <h1> {{$category_name ?? 'Choose category >>>'}} |</h1>
-    
-    <form action="{{route('admin_panel_get_menu_items_by_category')}}" method="post" style="width:250px; margin-right:20px; display:flex">
-        @csrf
-        <select name="category" class="form-select">
-            <option value="0" selected>Choose category</option>
-            @foreach($categories as $category)
-                <option value="{{$category->id}}">{{$category->name}}</option>
-            @endforeach
-        </select>
-        <button type="submit" class="btn btn-warning">Show</button>
-    </form>
+    <select name="category" class="form-select" onchange="getMenuItemsByCategory(this)">
+        <option value="{{route('admin_panel_show_menu_items')}}">Choose category</option>
+        @foreach($categories as $category)
+            <option value="{{route('admin_panel_show_menu_items_by_category',['id' => $category->id])}}" {{($category_name ?? '') === $category->name ? 'selected' : ''}}>{{$category->name}}</option>
+        @endforeach
+    </select>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
         Add new menu item
     </button>
