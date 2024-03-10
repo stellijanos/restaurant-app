@@ -22,8 +22,7 @@ class CategoryController extends Controller
     public function show() {
         return view('admin.admin_panel', [
             'page_title' => 'Admin Panel - Restaurant App', 
-            'categories' => Category::orderBy('menu_position')->get(),
-            'option' => 'menu_categories'
+            'categories' => Category::orderBy('menu_position')->get()
         ]);
     }
 

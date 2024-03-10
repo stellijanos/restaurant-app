@@ -19,15 +19,7 @@ class FoodController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_menu_items() {
-        return view('admin.admin_panel',[
-            'page_title' => 'Admin Panel - Restaurant App',
-            'categories' => Category::orderBy('name')->get(),
-            'foods' => Food::orderBy('menu_position')->get(),
-            'option' => 'menu_items'
-        ]);
-    }
-
+   
 
     public function create() {
 
@@ -47,8 +39,17 @@ class FoodController extends Controller
         $food->category_id = request()->get('category') ??Category::get()->first()->id;
 
         $food->save();
-
+            
         return redirect()->route('admin_panel_show_menu_items')->with('message', 'Menu item added successfully!');
+    }
+
+    public function show_menu_items() {
+        return view('admin.admin_panel',[
+            'page_title' => 'Admin Panel - Restaurant App',
+            'categories' => Category::orderBy('name')->get(),
+            'foods' => null,
+            'option' => 'menu_items'
+        ]);
     }
 
 
@@ -72,6 +73,10 @@ class FoodController extends Controller
 
         $id = request()->get('category') ?? 0;
 
+        if ($id == 0) {
+            return redirect()->route('admin_panel_show_menu_items');
+        }
+
         try {
             $category = Category::findOrFail($id);
             return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $category->id]);
@@ -82,6 +87,7 @@ class FoodController extends Controller
 
 
     public function show_by_category($id) {
+
         return view('admin.admin_panel',[
             'page_title' => 'Admin Panel - Restaurant App',
             'categories' => Category::orderBy('name')->get(),
@@ -90,5 +96,4 @@ class FoodController extends Controller
             'category_name' => Category::find($id)->name
         ]);
     }
-
 }

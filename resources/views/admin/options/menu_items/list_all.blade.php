@@ -1,19 +1,18 @@
 
 @foreach($foods as $food) 
     <div class="menu-item-block">
-        {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.
-        <form class="menu-item-form-block" action="{{route('update_menu_item', ['id' => $food->id])}}" method="POST" id="form-food-{{$food->id}}">
-            @csrf
-            @method('PUT')
-            <div class="menu-item-input-values">
-                @include($source.'edit_food_name')
-                @include($source.'edit_food_price')
-                @include($source.'edit_food_weight')
-                @include($source.'edit_food_category')
-            </div>
-            @include($source.'show_in_menu')
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+        <p style="width:300px;">
+            {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}. {{$food->name}} - {{$food->price}} - {{$food->weight}}
+        </p>
+        
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-menu-item-{{$food->id}}">
+            Edit 
+        </button>
+
+        @include($source.'edit_menu_modal')
+
+
         <div class="menu-item-position-block">
             <p style="margin-top:10px">Move on menu list: </p>
             @include($source.'up_button')

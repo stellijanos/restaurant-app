@@ -30,12 +30,9 @@
 
 
 <div id="menu-items-bar">
-    <h1>Menu items |</h1>
-    <h1>{{$category_name ?? ''}} </h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
-        Add new menu item
-    </button>
-    <form action="{{route('admin_panel_get_menu_items_by_category')}}" method="post" style="width:250px; margin-left:20px; display:flex">
+    <h1> {{$category_name ?? 'Choose category >>>'}} |</h1>
+    
+    <form action="{{route('admin_panel_get_menu_items_by_category')}}" method="post" style="width:250px; margin-right:20px; display:flex">
         @csrf
         <select name="category" class="form-select">
             <option value="0" selected>Choose category</option>
@@ -45,6 +42,9 @@
         </select>
         <button type="submit" class="btn btn-warning">Show</button>
     </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
+        Add new menu item
+    </button>
 </div>
 
 @include($source.'create_menu_item')

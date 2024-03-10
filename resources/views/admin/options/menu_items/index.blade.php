@@ -57,7 +57,9 @@
 @include($source.'bar')
 
 <div id="category-listing" class="overflow-auto">
-    @if(count($foods) === 0)
+    @if(is_null($foods)) 
+        @include($source.'no_category_chosen')
+    @elseif(count($foods) === 0)
         @include($source.'no_menu_items')
     @else
         @include($source.'list_all')
