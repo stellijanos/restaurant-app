@@ -7,6 +7,7 @@ use App\Models\Food;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class FoodController extends Controller
 {
@@ -100,7 +101,8 @@ class FoodController extends Controller
             'name' => 'required|string|min:1|max:64',
             'price' => 'required|numeric|min:0',
             'weight' => 'required|numeric|min:0',
-            'category' => 'required|numeric|min:1'
+            'category' => 'required|numeric|min:1',
+            'item_image' => 'required|file|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         $food = new Food();
@@ -111,11 +113,15 @@ class FoodController extends Controller
         $food->category_id = request()->get('category');
         
         $nr_of_category = Food::where('category_id', $food->category_id)->count();
-
         $food->menu_position = $nr_of_category + 1;
 
+        $file = request()->file('item_image');
+        $file_name = bin2hex(random_bytes(10)).'.'. $file->getClientOriginalExtension();
+        Storage::putFileAs('public/images/menu_items', $file, $file_name);
+
+        $food->image = $file_name;
         $food->save();
-            
+
         return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $food->category_id])->with('message', 'Menu item added successfully!');
     }
 
@@ -221,6 +227,5 @@ class FoodController extends Controller
             abort(404);
         }
     }
-
 
 }

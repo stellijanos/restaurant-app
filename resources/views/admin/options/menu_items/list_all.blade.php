@@ -1,6 +1,9 @@
 
 @foreach($foods as $food) 
     <div class="menu-item-block">
+
+        <img src="{{asset('/storage/app/public/images/menu_items').'/'.$food->image}}" height="200" width="200" alt="{{$food->name}}">
+
         <p style="width:300px;">
             {{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}. {{$food->name}} - {{$food->price}} - {{$food->weight}}
         </p>
