@@ -150,8 +150,6 @@ class FoodController extends Controller
             'category' => 'required|numeric|min:1'
         ]);
 
-      
-
         try {
 
             $food = Food::findOrFail($id);
@@ -160,6 +158,7 @@ class FoodController extends Controller
             $food->price = request()->get('price');
             $food->weight = request()->get('weight');
             $food->category_id = request()->get('category');
+            $food->show_on_menu = request()->has('show') ? 1 : 0;
 
             if (request()->hasFile('new_image')) {
 
@@ -179,7 +178,6 @@ class FoodController extends Controller
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
-
     }
 
 
@@ -235,6 +233,7 @@ class FoodController extends Controller
         try {
             $food = Food::findOrFail($id);
             DB::update("UPDATE food set menu_position = menu_position - 1 WHERE menu_position > ? AND category_id = ? ", [$food->menu_position, $food->category_id ]);
+            Storage::delete('public/images/menu_items/'.$food->image);
             $food->delete();
             return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $food->category_id])->with('message', 'Menu item deleted successfully!');
         } catch (ModelNotFoundException $e) {

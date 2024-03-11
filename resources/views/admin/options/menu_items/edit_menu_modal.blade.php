@@ -32,6 +32,11 @@
                         <input type="file" name="new_image" id="new_image" class="form-control">
                     </div>
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="checkbox-{{$food->id}}" name="show" {{ $food->show_on_menu == 1 ? "checked" : ""}}>
+                        <label for="checkbox-{{$food->id}}">Show in menu</label>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
