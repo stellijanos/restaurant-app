@@ -132,7 +132,9 @@ class FoodController extends Controller
      * 
      * Validates the request data for updateing a menu item.
      * If the validation passes and the menu item with the specified Id exists,
-     * its attributes are updated and saved to the database,
+     * its attributes are updated and saved to the database.
+     * If a new image is provided in the request, it replaces the existing image
+     * after deleting the old one from the storage.
      * then it redirects to the admin panel to display menu items filtered by
      * the category to which the updated item belongs.
      * 
@@ -148,6 +150,7 @@ class FoodController extends Controller
             'category' => 'required|numeric|min:1'
         ]);
 
+      
 
         try {
 
@@ -157,6 +160,17 @@ class FoodController extends Controller
             $food->price = request()->get('price');
             $food->weight = request()->get('weight');
             $food->category_id = request()->get('category');
+
+            if (request()->hasFile('new_image')) {
+
+                $file = request()->file('new_image');
+                $file_name = bin2hex(random_bytes(10)).'.'. $file->getClientOriginalExtension();
+                
+                Storage::delete('public/images/menu_items/'.$food->image);
+                Storage::putFileAs('public/images/menu_items', $file, $file_name);
+    
+                $food->image = $file_name;
+            }
 
             $food->save();
 

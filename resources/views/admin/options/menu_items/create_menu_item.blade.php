@@ -27,6 +27,7 @@
                         @endforeach
                     </select>
                     <div class="form-floating mb-3">
+                        <label for="item_image">Upload 1 image(.jpg, .jpeg, .png)</label><br><br>
                         <input type="file" name="item_image" id="item_image" class="form-control" >
                     </div>
                 </div>
@@ -38,3 +39,6 @@
         </div>
     </div>
 </div>
+
+
+

@@ -1,7 +1,7 @@
 <div class="modal fade" id="edit-menu-item-{{$food->id}}" tabindex="-1" aria-labelledby="edit-menu-item-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form action="{{route('update_menu_item', ['id' => $food->id])}}" method="post">
+            <form action="{{route('update_menu_item', ['id' => $food->id])}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
@@ -21,12 +21,17 @@
                         <input type="number" class="form-control" name="weight" value="{{$food->weight}}" placeholder="Weight (in g)" step=".01" min="0">
                         <label for="floatingInput">Weight (in g)</label>
                     </div>
-                    <select name="category" class="form-select form-select-lg">
+                    <select name="category" class="form-select form-select-lg mb-3">
                         <option value="0" >Choose category</option>
                         @foreach($categories as $category)
                             <option value="{{$category->id}}" {{$category->id == $food->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                         @endforeach
                     </select>
+                    <div class="form-floating mb-3">
+                        <label for="new_image">Change image(.jpg, .jpeg, .png)</label><br><br>
+                        <input type="file" name="new_image" id="new_image" class="form-control">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
