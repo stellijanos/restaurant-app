@@ -59,5 +59,10 @@ class AdminController extends Controller
     }
 
 
+    public function update_profile() {
+        
+    }
+
+
 }
 

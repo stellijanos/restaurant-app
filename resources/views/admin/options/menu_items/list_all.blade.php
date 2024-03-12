@@ -16,8 +16,6 @@
 
         @include($source.'edit_menu_modal')
   
-
-
         <div class="menu-item-position-block">
             <p style="margin-top:10px">Move on menu list: </p>
             @include($source.'up_button')

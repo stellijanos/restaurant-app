@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/admin/category/menu_items/{id}', [FoodController::class, 'update'])->name('update_menu_item');
     Route::patch('/admin/category/menu_items/{id}', [FoodController::class, 'patch'])->name('patch_menu_item');
     Route::delete('/admin/category/menu_items/{id}', [FoodController::class, 'delete'])->name('delete_menu_item');
+
+    Route::put('/admin/menu/home', [User::class, 'update_profile'])->name('update_admin_profile');
 });
 
 

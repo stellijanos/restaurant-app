@@ -28,17 +28,17 @@ $options = [
     <hr>
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{asset('public/images/profile/blank-profile-picture.png')}}" alt="" width="32" height="32" class="rounded-circle me-2">
+            <img src="{{asset('storage/app/public/images/profile/blank-profile-picture.png')}}" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong>{{auth()->user()->name}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-profile">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
         </ul>
     </div>
 </div>
+
+@include('admin/edit_profile')
 
 <script src="{{asset('/public/js/admin/script.js')}}"></script>

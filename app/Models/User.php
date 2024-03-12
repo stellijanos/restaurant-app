@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function update_profile() {
+        echo request()->get('name');
+        echo request()->get('email');
+        echo request()->file('new_image');
+    }
 }
