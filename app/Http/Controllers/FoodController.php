@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 class FoodController extends Controller
 {
 
+    private function getNrOfFoodForEachCategory() {
+        return Category::leftJoin('food', 'categories.id', '=', 'food.category_id')
+                        ->select('categories.id as id','categories.name as name', DB::raw('COUNT(food.id) as count'))
+                        ->orderBy('categories.name')
+                        ->groupBy('categories.id', 'categories.name')->get();
+    }
+
 
 
     /**
@@ -24,7 +31,7 @@ class FoodController extends Controller
      public function show_menu_items() {
         return view('admin.admin_panel',[
             'page_title' => 'Admin Panel - Restaurant App',
-            'categories' => Category::orderBy('name')->get(),
+            'categories' => $this->getNrOfFoodForEachCategory(),
             'foods' => null,
             'option' => 'menu_items'
         ]);
@@ -46,8 +53,8 @@ class FoodController extends Controller
             $category = Category::findOrFail($id);
             return view('admin.admin_panel',[
                 'page_title' => 'Admin Panel - Restaurant App',
-                'categories' => Category::orderBy('name')->get(),
                 'foods' => Food::where('category_id', $id)->orderBy('menu_position')->get(),
+                'categories' => $this->getNrOfFoodForEachCategory(),
                 'option' => 'menu_items',
                 'category_name' => $category->name
             ]);

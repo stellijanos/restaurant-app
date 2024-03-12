@@ -2,7 +2,7 @@
 @foreach($foods as $food) 
     <div class="menu-item-block">
         <p>{{($loop->index+1 < 10 ? '0' : '').$loop->index+1}}.</p>
-        <img src="{{asset('/storage/app/public/images/menu_items').'/'.$food->image}}" height="200" width="200" alt="{{$food->name}}">
+        <img src="{{asset('/storage/app/public/images/menu_items').'/'.$food->image}}" class="img-fluid" height="200" width="200" alt="{{$food->name}}">
         <div style="width:250px;">
             <p>Name: {{$food->name}}</p>
             <p>Price: {{$food->price}}</p>

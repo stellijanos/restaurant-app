@@ -47,18 +47,20 @@
     <select name="category" class="form-select" onchange="getMenuItemsByCategory(this)">
         <option value="{{route('admin_panel_show_menu_items')}}">Choose category</option>
         @foreach($categories as $category)
-            <option value="{{route('admin_panel_show_menu_items_by_category',['id' => $category->id])}}" {{($category_name ?? '') === $category->name ? 'selected' : ''}}>{{$category->name}}</option>
+            <option value="{{route('admin_panel_show_menu_items_by_category',['id' => $category->id])}}" {{($category_name ?? '') === $category->name ? 'selected' : ''}}>{{$category->name}} ({{$category->count}})</option>
         @endforeach
     </select>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-item">
         Add new menu item
     </button>
 
+
     @if(session()->has('create_message'))
         <h4>| {{session()->get('create_message')}}</h4>
     @endif
 
 </div>
+
 
 @include($source.'create_menu_item')
 

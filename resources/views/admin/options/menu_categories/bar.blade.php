@@ -1,5 +1,5 @@
 <div id="menu-categories-bar">
-    <h1>Menu categories |</h1>
+    <h1>Menu categories: {{count($categories)}} (in total)|</h1>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-category">
         Add new category
     </button>
