@@ -32,7 +32,7 @@ $options = [
             <strong>{{auth()->user()->name}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-profile">Profile</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-profile">Edit Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
         </ul>

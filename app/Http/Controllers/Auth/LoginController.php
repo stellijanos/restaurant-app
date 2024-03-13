@@ -33,10 +33,10 @@ class LoginController extends Controller
      */
     public function login() {
 
-        validator(request()->all(), [
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ])->validate();
+        request()->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
         if(auth()->attempt(request()->only('email', 'password'))) {
             return redirect()->route('admin_panel_show_home');
