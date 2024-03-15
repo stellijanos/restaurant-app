@@ -83,7 +83,7 @@ class AdminController extends Controller
         if (request()->has('new_password')) {
             
             request()->validate([
-                'confirm_password' => 'required|string|same:new_password'
+                'confirm_password' => 'same:new_password'
             ]);
 
             $new_password = request()->get('new_password');
@@ -92,7 +92,12 @@ class AdminController extends Controller
 
         }
 
-        if (request()->hasFile('new_image')) {
+
+        if (request()->has('remove_picture')) {
+            Storage::delete('public/images/profile/'.$user->image);
+            $user->image = 'blank-profile-picture.png';
+        } 
+        else if (request()->hasFile('new_image')) {
 
             $file = request()->file('new_image');
             $file_name = bin2hex(random_bytes(10)).'.'. $file->getClientOriginalExtension();

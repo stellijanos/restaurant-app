@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="name" id="name" value="{{auth()->user()->name}}" placeholder="Name">
+                        <input type="text" class="form-control" name="name" id="name" value="{{auth()->user()->name}}" placeholder="Name" autocomplete>
                         <label for="name">Name</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -29,8 +29,12 @@
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
                         <label for="confirm_password">Confirm new password</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <label for="new_image">Change image(.jpg, .jpeg, .png)</label><br><br>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" name="remove_picture" id="remove_picture" onclick="hide('change_picture_div')">
+                        <label for="remove_picture">Remove profile picture</label>
+                    </div>
+                    <div class="form-floating mb-3" id="change_picture_div">
+                        <label for="new_image">Change profile picture(.jpg, .jpeg, .png)</label><br><br>
                         <input type="file" name="new_image" id="new_image" class="form-control">
                     </div>
                 </div>
@@ -42,3 +46,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    const hide = id => {
+        let div = document.getElementById(id);
+
+        if (div.style.display ==="none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    }
+</script>
