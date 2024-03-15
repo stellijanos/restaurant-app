@@ -43,10 +43,4 @@ class User extends Authenticatable
     ];
 
 
-
-    public function update_profile() {
-        echo request()->get('name');
-        echo request()->get('email');
-        echo request()->file('new_image');
-    }
 }

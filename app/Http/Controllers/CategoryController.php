@@ -74,7 +74,7 @@ class CategoryController extends Controller
             $category->name = request()->get('name') ?? $category->name;
             $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
-            return redirect()->route('admin_panel_show_menu_categories');
+            return redirect()->back();
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -104,7 +104,7 @@ class CategoryController extends Controller
             $category->save();
             $otherCategory->save();
 
-            return redirect()->route('admin_panel_show_menu_categories')->with('message', 'Moved successfully!');
+            return redirect()->back()->with('message', 'Moved successfully!');
 
         } catch (ModelNotFoundException $e) {
             abort(404);
