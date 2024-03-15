@@ -29,10 +29,13 @@
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
                         <label for="confirm_password">Confirm new password</label>
                     </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" name="remove_picture" id="remove_picture" onclick="hide('change_picture_div')">
-                        <label for="remove_picture">Remove profile picture</label>
-                    </div>
+
+                    @if(auth()->user()->image !== 'blank-profile-picture.png')
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" name="remove_picture" id="remove_picture" onclick="hide('change_picture_div')">
+                            <label for="remove_picture">Remove profile picture</label>
+                        </div>
+                    @endif
                     <div class="form-floating mb-3" id="change_picture_div">
                         <label for="new_image">Change profile picture(.jpg, .jpeg, .png)</label><br><br>
                         <input type="file" name="new_image" id="new_image" class="form-control">

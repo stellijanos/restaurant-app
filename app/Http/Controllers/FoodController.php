@@ -167,7 +167,14 @@ class FoodController extends Controller
             $food->category_id = request()->get('category');
             $food->show_on_menu = request()->has('show') ? 1 : 0;
 
-            if (request()->hasFile('new_image')) {
+
+            if (request()->has('remove_image')) {
+
+                Storage::delete('public/images/menu_items/'.$food->image);
+                $food->image = 'blank_image.png';
+            } 
+            
+            else if (request()->hasFile('new_image')) {
 
                 $file = request()->file('new_image');
                 $file_name = bin2hex(random_bytes(10)).'.'. $file->getClientOriginalExtension();
