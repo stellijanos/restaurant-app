@@ -80,7 +80,7 @@ class AdminController extends Controller
             return redirect()->back()->withErrors(['password' => 'Incorrect password']);
         }
 
-        if (request()->has('new_password')) {
+        if (request()->get('new_password') !== null) {
             
             request()->validate([
                 'confirm_password' => 'same:new_password'
