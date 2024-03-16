@@ -12,16 +12,16 @@
                     <div class="image">
                         <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
                     </div>
-                    
-                    <p>{{$food->weight}}</p>
-                    <p>{{$food->price}}</p>
-                </div>
-                Quantity: 
-                <div class="set-quantity-div">
-                    <i class="bi bi-dash" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}')"></i>
-                    <p name="quantity" value="1" id="text-quantity-{{$food->id}}">1</p>
-                    <input type="hidden" id="quantity-{{$food->id}}" value='1'>
-                    <i class="bi bi-plus" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}', true)"></i>
+                    <div class="infos-options">
+                        <p>{{$food->weight}}g</p>
+                        <p>{{$food->price}}</p>
+                        <div class="set-quantity-div">
+                            <i class="bi bi-dash" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}')"></i>
+                            <p name="quantity" value="1" id="text-quantity-{{$food->id}}">1</p>
+                            <input type="hidden" id="quantity-{{$food->id}}" value='1'>
+                            <i class="bi bi-plus" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}', true)"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

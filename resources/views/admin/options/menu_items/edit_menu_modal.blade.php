@@ -30,11 +30,11 @@
 
                     @if ($food->image !=='blank_image.png')
                         <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" name="remove_image" id="remove_menu_picture" onclick="hide('change_item_image')">
-                            <label for="remove_menu_picture">Remove picture</label>
+                            <input type="checkbox" class="form-check-input" name="remove_image" id="remove_menu_picture-{{$food->id}}" onclick="hide('change_item_image-{{$food->id}}')">
+                            <label for="remove_menu_picture-{{$food->id}}">Remove picture</label>
                         </div>
                     @endif
-                    <div class="form-floating mb-3" id="change_item_image">
+                    <div class="form-floating mb-3" id="change_item_image-{{$food->id}}">
                         <label for="new_image">Change image(.jpg, .jpeg, .png)</label><br><br>
                         <input type="file" name="new_image" id="new_image" class="form-control">
                     </div>

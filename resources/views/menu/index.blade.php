@@ -7,8 +7,8 @@
 
 <style>
     #menu {
-        background-color: #3c6e71;
-        color:#fff;
+        /* background-color: #3c6e71; */
+        /* color:#fff; */
         height: calc(100vh - 106px);
     }
 
@@ -16,6 +16,8 @@
         padding:20px;
         display:flex;
         flex-direction:row;
+        gap:2rem;
+        flex-wrap:wrap;
     }
 
 
@@ -52,6 +54,7 @@
 
         display:flex;
         flex-direction:column;
+        /* gap:2rem; */
     }
 
 
@@ -110,10 +113,18 @@
         margin:0;
     }
 
+    .modal-body .infos-options {
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        padding: 10px;
+    }
+
+
 
 </style>
 
-<div id="menu overflow-auto">
+<div id="menu" class="overflow-auto">
     
     @foreach($categories as $category)
         <h1 style="margin:10px 0 -15px 30px; user-select:none">{{$category->name}}</h1>
