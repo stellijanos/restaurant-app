@@ -1,7 +1,4 @@
 
-
-
-
 <style>
     .menu-category-block {
         background-color:rgba(211, 211, 211, 0.6);
@@ -56,7 +53,6 @@
             @csrf
             @method('PUT')
             @include($source.'edit_category_name')
-            @include($source.'show_in_menu')
             <button type="submit" class="btn btn-primary">Save changes</button>
         </form>
         <div class="menu-category-position-block">
@@ -67,4 +63,3 @@
         @include($source.'delete_button')
     </div>
 @endforeach
-

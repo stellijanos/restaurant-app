@@ -5,7 +5,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,13 +30,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin/orders', [AdminController::class, 'show_orders'])->name('admin_panel_show_orders');
 
     Route::get('/admin/customers', [AdminController::class, 'show_customers'])->name('admin_panel_show_customers');
-    
-    
+
+
     Route::get('/admin/menu_categories', [CategoryController::class, 'show'])->name('admin_panel_show_menu_categories');
     Route::post('/admin/menu_categories', [CategoryController::class, 'create'])->name('create_menu_category');
     Route::put('/admin/menu_categories/{id}', [CategoryController::class, 'update'])->name('update_menu_category');
     Route::patch('/admin/menu_categories/{id}', [CategoryController::class, 'patch'])->name('patch_menu_category');
-    Route::delete('/admin/menu_ategories/{id}', [CategoryController::class, 'delete'])->name('delete_menu_category');
+    Route::delete('/admin/menu_categories/{id}', [CategoryController::class, 'delete'])->name('delete_menu_category');
 
 
     Route::get('/admin/menu_items', [FoodController::class, 'show_menu_items'])->name('admin_panel_show_menu_items');

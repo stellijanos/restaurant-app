@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +10,16 @@
 	<style>
         footer {
             color:#fff;
-            background-color: #212529;
+            
             height:50px;
             display:flex;
             flex-direction:row;
             align-items:center;
             justify-content:center;
+
+            position:fixed;
+
+            /* margin-top:calc(100vh - 106px); */
         }
 
         footer>p {
@@ -24,22 +28,21 @@
 
 
         html {
-            background-color:#212529;
+            /* background-color:#212529; */
         }
 
         /* 3c6e71  */
 	</style>
 </head>
-<body>
+<body >
 @include('includes.navbar')
     
 @yield('content')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-</body>
-  <footer>
+    <footer class="bg-dark sticky-bottom">
         <p>&copy;<?=date('Y') ?> Stelli Janos.</p>
-
-  </footer>
+    </footer>
+</body>
+ 
 </html>

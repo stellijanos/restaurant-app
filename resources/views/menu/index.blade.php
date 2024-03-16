@@ -19,12 +19,12 @@
     }
 
 
-    .menu-item-category-block {
+    .menu-category-item-block {
         border:1px solid #000;
         border-radius:5px;
         margin:10px;
-        width:350px;
-        height:175px;
+        width:320px;
+        height:160px;
 
         display:flex;
         flex-direction:row;
@@ -38,8 +38,11 @@
         cursor:pointer;
     }
 
-    .menu-item-category-block>img {
+    .menu-item-image-div> img {
         border-radius:10px;
+        margin:5px;
+        height:150px;
+        width:150px;
     }
 
     .item-details {
@@ -49,70 +52,117 @@
 
         display:flex;
         flex-direction:column;
-
     }
 
+
+    .set-quantity-div {
+        width:70px;
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        background-color:#000;
+        color:#fff;
+        border-radius:10px;
+    
+        padding:5px;
+        margin:5px;
+    }
+
+    .set-quantity-div  p {
+        text-align:center;
+        user-select:none;
+    }
+
+    .set-quantity-div i {
+        cursor:pointer;
+    }
+
+    .set-quantity-div > * {
+        margin:auto auto -5px; 
+        width:30px; 
+        height:30px;
+    }
+
+     
+    .item-details > .name {
+        font-size:1.5rem;
+        font-weight:bold;
+        max-width:150px;
+    }
+
+    .item-details>.weight {
+        font-size:1.1rem;
+        max-width:150px;
+    }
+
+    .item-details>.price {
+        font-size:1.6rem;
+        font-weight:bold;
+    }
+
+    .modal-body > .image {
+        display:flex;
+        flex-direciton:row;
+        justify-content:center;
+    }
+    .modal-body > .image > img {
+        margin:0;
+    }
 
 
 </style>
 
-<div id="menu">
-    <h1>Menu</h1>
-
+<div id="menu overflow-auto">
     
-
-
     @foreach($categories as $category)
-        <h1>{{$category->name}}</h1>
+        <h1 style="margin:10px 0 -15px 30px; user-select:none">{{$category->name}}</h1>
 
         <div class="menu-category">
 
             @foreach($category->food as $food)
-                <div class="menu-item-category-block" data-bs-toggle="modal" data-bs-target="#view-menu-item-{{$food->id}}">
-
-                    <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="150", height="150">
+                <div class="menu-category-item-block" data-bs-toggle="modal" data-bs-target="#view-menu-item-{{$food->id}}">
+                    <div class="menu-item-image-div">
+                        <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="{{$food->name}}">
+                    </div>
                    
                     <div class="item-details">
-                        <p>{{$food->name}}</p>
-                        <p>{{$food->weight}}</p>
-                        <p>{{$food->price}}</p>
+                        <p class="name text-truncate">{{$food->name}}</p>
+                        <p class="weight">{{$food->weight}}g</p>
+                        <p class="price">{{$food->price}} &euro;</p>
                     </div>
                 </div>
 
-                <div class="modal fade" id="view-menu-item-{{$food->id}}" tabindex="-1" aria-labelledby="view-menu-item-{{$food->id}}-label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <form action="{{route('update_admin_profile')}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="view-menu-item-{{$food->id}}-label">Edit Profile</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
-                                    <p>{{$food->name}}</p>
-                                    <p>{{$food->weight}}</p>
-                                    <p>{{$food->price}}</p>
-                                </div>
-
-                                <p  class="btn btn-success">
-                                    <i class="bi bi-dash" id="remove-item-{{$food->id}}"></i>
-                                    <input type="number" style="width:30px;"name="quantity" value="1" min="1" max="10" id="quantity" disabled>
-                                    <i class="bi bi-plus" id="remove-item-{{$food->id}}"></i>
-                                </p>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Add to cart</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                @include('menu.menu-item-modal')
             @endforeach
         </div>
     
     @endforeach
 </div>
+
+<script>
+    const change_quantity = (id,increment = false) => {
+
+        let input = document.getElementById(id);
+        let text = document.getElementById('text-' + id);
+
+        if (increment) {
+            if (input.value >= 10) {
+                alert('Maximum quantity is 10');
+                input.value = 10;
+            } else {
+                input.value++;
+            }
+        } else {
+            if (input.value <=1) {
+                alert('Minimum quantity is 1');
+                input.value = 1;
+            } else {
+                input.value--;
+            }
+        }
+        text.innerText = input.value;
+    }
+</script>
 
 @endsection

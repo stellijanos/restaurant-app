@@ -60,7 +60,7 @@ class CategoryController extends Controller
      * 
      * This method updated an existing category with the provided Id.
      * It validates the incoming request to ensure the 'name' field is provided and meets the specified criteria.
-     * If the category is found, its name and 'show_on_menu' attribute are updated based on the request.
+     * If the category is found, its name attribute is updated based on the request.
      * After updating the category, the user is redirected to the admin panel menu categories page.
      * 
      * @param int $id The Id of the category to update
@@ -72,7 +72,6 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $category->name = request()->get('name') ?? $category->name;
-            $category->show_on_menu = request()->has('show') ? 1 : 0;
             $category->save();
             return redirect()->back();
         } catch (ModelNotFoundException $e) {
