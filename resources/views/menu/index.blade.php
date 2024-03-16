@@ -48,46 +48,36 @@
     }
 
     .item-details {
-        /* padding:15px; */
-
         color:#000;
-
         display:flex;
         flex-direction:column;
-        /* gap:2rem; */
     }
 
 
     .set-quantity-div {
-        width:70px;
+        width:100%;
+        padding:5px 20px;
+
         display:flex;
         flex-direction:row;
-        align-items:center;
-        justify-content:space-between;
-        background-color:#000;
-        color:#fff;
-        border-radius:10px;
-    
-        padding:5px;
-        margin:5px;
+        justify-content:center;
+        gap:0.5rem;
+        margin:auto;
+        font-weight:bold;
+        font-size:2rem;
     }
 
     .set-quantity-div  p {
         text-align:center;
         user-select:none;
+        width:40px;
     }
 
     .set-quantity-div i {
         cursor:pointer;
     }
 
-    .set-quantity-div > * {
-        margin:auto auto -5px; 
-        width:30px; 
-        height:30px;
-    }
 
-     
     .item-details > .name {
         font-size:1.5rem;
         font-weight:bold;
@@ -109,17 +99,39 @@
         flex-direciton:row;
         justify-content:center;
     }
+
     .modal-body > .image > img {
         margin:0;
     }
 
-    .modal-body .infos-options {
+    .modal-body .infos {
         display:flex;
-        flex-direction:row;
-        justify-content:space-between;
-        padding: 10px;
+        flex-direction:column;
+        padding: 0 30px;
+        font-weight:bold;
+        font-size:2rem;
     }
 
+    .modal-body::-webkit-scrollbar {
+        width:0px;
+    }
+    
+    .modal-body::-moz-scrollbar {
+        width:0px;
+    }
+
+    .modal-body::-ms-scrollbar {
+        width:0px;
+    }
+
+    .modal-footer.add-to-cart {
+        display:flex;
+        justify-content:center;
+    }
+
+    .modal-footer.add-to-cart>button {
+        width:40%;
+    }
 
 
 </style>
@@ -152,10 +164,13 @@
 </div>
 
 <script>
-    const change_quantity = (id,increment = false) => {
+    const change_quantity_price = (id, price, increment = false) => {
 
-        let input = document.getElementById(id);
-        let text = document.getElementById('text-' + id);
+        let input = document.getElementById('quantity-'+id);
+        let text = document.getElementById('text-quantity-' + id);
+
+        let finalPrice = document.getElementById('price-' + id);
+
 
         if (increment) {
             if (input.value >= 10) {
@@ -173,6 +188,7 @@
             }
         }
         text.innerText = input.value;
+        finalPrice.innerText = input.value * price;
     }
 </script>
 

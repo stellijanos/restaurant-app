@@ -1,33 +1,31 @@
 <div class="modal fade" id="view-menu-item-{{$food->id}}" tabindex="-1" aria-labelledby="view-menu-item-{{$food->id}}-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form action="{{route('update_admin_profile')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" style="text-align:center;" id="view-menu-item-{{$food->id}}-label">{{$food->name}}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content" action="{{route('update_admin_profile')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="modal-header">
+                <!-- <h1 class="modal-title fs-5" style="text-align:center;" id="view-menu-item-{{$food->id}}-label">{{$food->name}}</h1> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="image">
+                    <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
                 </div>
-                <div class="modal-body">
-                    <div class="image">
-                        <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
-                    </div>
-                    <div class="infos-options">
-                        <p>{{$food->weight}}g</p>
-                        <p>{{$food->price}}</p>
-                        <div class="set-quantity-div">
-                            <i class="bi bi-dash" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}')"></i>
-                            <p name="quantity" value="1" id="text-quantity-{{$food->id}}">1</p>
-                            <input type="hidden" id="quantity-{{$food->id}}" value='1'>
-                            <i class="bi bi-plus" id="remove-item-{{$food->id}}" onclick="change_quantity('quantity-{{$food->id}}', true)"></i>
-                        </div>
-                    </div>
+                <div class="infos">
+                    <p class="name">{{$food->name}} - {{$food->weight}}g</p>
+                    <p style="font-size:1.5rem; margin-top:-10px;">{{$food->price}} &euro;</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add to cart</button>
+                <div class="set-quantity-div">
+                    <i class="bi bi-dash-circle" id="remove-item-{{$food->id}}" onclick="change_quantity_price('{{$food->id}}', {{$food->price}})"></i>
+                    <p name="quantity" value="1" id="text-quantity-{{$food->id}}">1</p>
+                    <input type="hidden" id="quantity-{{$food->id}}" value='1'>
+                    <i class="bi bi-plus-circle" id="remove-item-{{$food->id}}" onclick="change_quantity_price('{{$food->id}}', {{$food->price}} ,true)"></i>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="modal-footer add-to-cart">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
+            </div>
+        </form>
     </div>
 </div>

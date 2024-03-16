@@ -4,8 +4,9 @@
 
 @section('content')
 
-
-<h1>Homepage - Restaurant App</h1>
-
+    
+<div style="height: calc(100vh - 106px);">
+    <h1>Homepage - Restaurant App</h1>
+</div>
 
 @endsection
