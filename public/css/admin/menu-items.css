@@ -1,0 +1,82 @@
+#form-add-menu-item{
+    display:flex;
+    flex-direction:column;
+    align-items:space-between;
+    justify-content:center;
+    gap:1rem;
+}
+
+#menu-items-bar {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    margin:10px;
+    gap:1rem;
+}
+
+.input-menu-item {
+    height:40px;
+    border-radius:5px;
+}
+
+#input-meun-item-button {
+    height:40px;
+    margin-top:-5px;
+}
+
+#menu-items-bar>select {
+    width:200px;
+}
+
+
+#category-listing {
+    max-height:calc(100vh - 240px);
+    user-select:none;
+}
+
+
+.menu-item-block {
+    background-color:rgba(211, 211, 211, 0.6);
+    margin:10px;
+    padding:10px;
+    justify-content:space-between;
+}
+
+.menu-item-form-block, .menu-item-position-block{
+    gap:1rem;
+}
+
+.menu-item-block, .menu-item-value-block, .menu-item-form-block, .menu-item-position-block {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+
+
+.menu-item-value-block>input {
+    height:40px;
+    border-radius: 5px 0 0 5px;
+}
+
+.menu-item-value-block>button {
+    height:40px;
+    border-radius:0 5px 5px 0;
+}
+
+.menu-item-input-values {
+    display:flex;
+    flex-direction:column; 
+    gap:1rem;
+}
+
+
+/* .menu-items-block {
+    display:flex;
+    flex-direction:column;
+} */
+
+.modal-body .food-image {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}

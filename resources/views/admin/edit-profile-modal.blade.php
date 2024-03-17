@@ -8,6 +8,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetInputs()"></button>
             </div>
             <div class="modal-body">
+                <div class="mb-3" id="admin-image">
+                    <img src="{{asset('storage/app/public/images/profile/'.(is_null(auth()->user()->image) ? 'blank-profile-picture.png' : auth()->user()->image))}}" alt="profile-picture" width="400px" height="400px">
+                </div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="name" id="name" value="{{auth()->user()->name}}" placeholder="Name" autocomplete>
                     <label for="name">Name</label>

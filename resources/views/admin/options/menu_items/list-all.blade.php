@@ -14,13 +14,13 @@
             Edit 
         </button>
 
-        @include($source.'edit_menu_modal')
+        @include($source.'edit-menu-modal')
   
         <div class="menu-item-position-block">
             <p style="margin-top:10px">Move on menu list: </p>
-            @include($source.'up_button')
-            @include($source.'down_button')
+            @include($source.'up-button')
+            @include($source.'down-button')
         </div>
-        @include($source.'delete_button')
+        @include($source.'delete-button')
     </div>
 @endforeach

@@ -19,6 +19,13 @@
         width: calc(100vw - 280px);
     }
 
+
+    #admin-image{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
 </style>
 
 

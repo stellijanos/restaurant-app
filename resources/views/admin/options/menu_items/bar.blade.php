@@ -1,39 +1,4 @@
 
-
-<style>
-
-    #form-add-menu-item{
-        display:flex;
-        flex-direction:column;
-        align-items:space-between;
-        justify-content:center;
-        gap:1rem;
-    }
-
-    #menu-items-bar {
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-        margin:10px;
-        gap:1rem;
-    }
-
-    .input-menu-item {
-        height:40px;
-        border-radius:5px;
-    }
-
-    #input-meun-item-button {
-        height:40px;
-        margin-top:-5px;
-    }
-
-    #menu-items-bar>select {
-        width:200px;
-    }
-
-</style>
-
 <script>
     const getMenuItemsByCategory = select => {
         const url = select.value;
@@ -62,7 +27,7 @@
 </div>
 
 
-@include($source.'create_menu_item')
+@include($source.'create-menu-item-modal')
 
 
 @if($errors->any())
