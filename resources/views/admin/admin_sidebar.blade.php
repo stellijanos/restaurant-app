@@ -39,6 +39,6 @@ $options = [
     </div>
 </div>
 
-@include('admin/edit_profile')
+@include('admin/edit-profile-modal')
 
 <script src="{{asset('/public/js/admin/script.js')}}"></script>
