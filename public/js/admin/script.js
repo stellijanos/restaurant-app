@@ -3,6 +3,13 @@
 // add eventlisteners to forms to track the modifications
 
 
+const changeToSubmitButton = input => {
+    button = document.getElementById('btn_' + input.id);
+
+    button.innerText = "Save";
+    button.type="submit";
+}
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -25,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         input.disabled = false;
         input.style.color="#000";
+
     }
     
     editButtons.forEach(function(button) {

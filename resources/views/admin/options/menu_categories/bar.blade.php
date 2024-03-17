@@ -9,7 +9,7 @@
     @endif
 </div>
 
-@include($source.'create_category')
+@include($source.'create-category-modal')
 
 @if($errors->any())
     <div style="background-color:#ff7f7f; color:#000; padding:10px;">
