@@ -1,0 +1,21 @@
+footer {
+    color:#fff;
+    
+    height:50px;
+    width:100%;
+ 
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    /* margin-top:calc(100vh - 106px); */
+}
+
+footer>p {
+    margin:auto;
+
+}
+

@@ -41,4 +41,11 @@ class RestaurantController extends Controller
             'categories' => $categories
         ]);
     }
+
+
+    public function show_cart() {
+        return view('cart.index',[
+            'page_title' => 'Cart - Restaurant App'
+        ]);
+    }
 }

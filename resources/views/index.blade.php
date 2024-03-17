@@ -3,6 +3,5 @@
 
 <div style="height: calc(100vh - 106px);">
     <h1>Homepage - Restaurant App</h1>
-    @include('cookie-consent')
 </div>
 @endsection

@@ -11,12 +11,18 @@
 					<a class="nav-link active" aria-current="page" href="{{route('show_menu')}}">Menu</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Cart</a>
+					<a class="nav-link" href="{{route('show_cart')}}">
+						Cart
+						<span class="position-absolute translate-middle badge rounded-pill sm bg-danger">
+							<span id="cart-quantity">0</span>
+							<span class="visually-hidden">unread messages</span>
+						</span>
+					</a>
 				</li>
 				@if(Route::has('login'))
 					<li class="nav-item">
 						@auth
-							<a class="nav-link" href="{{route('admin_panel_show_home')}}">Admin panel</a>
+							<a class="nav-link position-relative" href="{{route('admin_panel_show_home')}}">Admin panel</a>
 						@else 
 							<a class="nav-link" href="{{route('login')}}">Login</a>
 						@endauth

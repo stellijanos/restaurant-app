@@ -1,8 +1,6 @@
 <div class="modal fade" id="view-menu-item-{{$food->id}}" tabindex="-1" aria-labelledby="view-menu-item-{{$food->id}}-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <form class="modal-content" action="{{route('update_admin_profile')}}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+        <div class="modal-content">
             <div class="modal-header">
                 <!-- <h1 class="modal-title fs-5" style="text-align:center;" id="view-menu-item-{{$food->id}}-label">{{$food->name}}</h1> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -24,8 +22,8 @@
             </div>
             <div class="modal-footer add-to-cart">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
+                <button type="button" class="btn btn-primary" id="add-to-cart-{{$food->id}}" onclick="addToCart({{$food->id}})">Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
