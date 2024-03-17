@@ -12,7 +12,7 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('show_cart')}}">
-						Cart
+						Cart <i class="bi bi-cart-fill"></i>
 						<span class="position-absolute translate-middle badge rounded-pill sm bg-danger">
 							<span id="cart-quantity">0</span>
 							<span class="visually-hidden">unread messages</span>
