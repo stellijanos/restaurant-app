@@ -28,11 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
         cookieBanner.style.display = "block";
     } else {
         setCookie("cookie_consent", "accepted", 30);
+        if (!getCookieValue('cart')) {
+            setCookie("cart", JSON.stringify({}), 30);
+        }
     }
 
     acceptBtn.addEventListener("click", function() {
         setCookie("cookie_consent", "accepted", 30);
-        setCookie("cart", JSON.stringify([]), 30);
+        setCookie("cart", JSON.stringify({}), 30);
         cookieBanner.style.display = "none";
     });
 

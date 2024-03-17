@@ -11,6 +11,10 @@
 
 <div id="cart-div">
     <h1>Cart</h1>
-
+    @foreach($cart as $item) 
+    <div class="item">
+        <p>{{$item->id}} - {{$item->quantity}} - {{$item->price}}</p>
+    </div>
+    @endforeach
 </div>
 @endsection

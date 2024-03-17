@@ -37,11 +37,7 @@
         }
 
         function getNrElements(cart) {
-            sum = 0;
-            for (let item of cart) {
-                sum += item.quantity;
-            }
-            return sum;
+            return Object.values(cart).reduce((sum, curr) => sum + curr, 0);
         }
 
         const cart = JSON.parse(getCookieValue('cart'));

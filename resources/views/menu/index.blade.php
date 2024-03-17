@@ -25,22 +25,14 @@ function setCookie(name, value, days) {
 }
 
 
-
 function addToCart(id) {
 
     let quantity = Number(document.getElementById('quantity-' + id).value);
-    let exists = false;
 
-    for (let item of cart) {
-        if (item.id == id) {
-            exists = true;
-            item.quantity += quantity;
-            break;
-        }
-    }
-    if (!exists) {
-        let new_item = {'id' : id, 'quantity' : quantity};
-        cart.push(new_item);
+    if (cart.hasOwnProperty(id)) {
+        cart[id] += quantity;
+    } else {
+        cart[id] = quantity;
     }
 
     setCookie('cart', JSON.stringify(cart), 30);

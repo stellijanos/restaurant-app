@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="modal-footer add-to-cart">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
                 <button type="button" class="btn btn-primary" id="add-to-cart-{{$food->id}}" onclick="addToCart({{$food->id}})">Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
             </div>
         </div>

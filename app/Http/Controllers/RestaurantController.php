@@ -44,8 +44,23 @@ class RestaurantController extends Controller
 
 
     public function show_cart() {
+
+        $cart = json_decode($_COOKIE['cart'], true);
+
+        $ids = array_keys($cart);
+
+
+        $foods = Food::whereIn('id', $ids)->get();
+
+
+        foreach($foods as $food) {
+            $food->quantity = $cart[$food->id];
+        }
+
+
         return view('cart.index',[
-            'page_title' => 'Cart - Restaurant App'
+            'page_title' => 'Cart - Restaurant App',
+            'cart' => $foods
         ]);
     }
 }
