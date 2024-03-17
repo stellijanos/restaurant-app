@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieValue !== 'accepted') {
         cookieBanner.style.display = "block";
+    } else {
+        setCookie("cookie_consent", "accepted", 30);
     }
 
     acceptBtn.addEventListener("click", function() {
@@ -39,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function setCookie(name, value, days) {
         const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 3600));
+        date.setTime(date.getTime() + (days * 24 * 3600 * 1000));
         const expires = "expires=" + date.toUTCString();
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
