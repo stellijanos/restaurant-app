@@ -16,8 +16,8 @@ class LoginController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_login_form() {
-        return view('login_form',  ['page_title' => 'Login - Restaurant App']);
+    public function show_login() {
+        return view('login.index',  ['page_title' => 'Login - Restaurant App']);
     }
 
 
@@ -57,7 +57,7 @@ class LoginController extends Controller
 
         auth()->logout();
 
-        return redirect()->route('login');
+        return redirect()->route('show_login');
     }
 
 }

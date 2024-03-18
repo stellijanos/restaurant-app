@@ -1,22 +1,45 @@
-
-
 class Cart {
 
     constructor(cart) {
         this._cart = JSON.parse(cart);
     }
 
+
     get() {
         return this._cart;
     }
+
 
     getNrElements() {
         return Object.values(this._cart).reduce((sum, curr) => sum + curr, 0);
     }
 
+
+    #addNewItem(id, quantity) {
+        this._cart[id] = quantity;
+    }
+
+
+    #updateExisting(id, quantity) {
+
+        let nrElems = this._cart[id];
+
+        if (!this.#isValidQuantity(quantity, nrElems)) {
+            return;
+        } 
+        this._cart[id] += quantity;
+    }
+
+
+    #save_cart() {
+        Cookie.set('cart', JSON.stringify(this._cart), 30);
+    }
+
+
     #existsItem(id) {
         return this._cart.hasOwnProperty(id);
     }
+
 
     #isValidQuantity(quantity, nrItems) {
 
@@ -36,6 +59,12 @@ class Cart {
     }
 
 
+    setNrElementsTag() {
+        let cart_nr_elements_tag = document.getElementById('cart-quantity');
+        cart_nr_elements_tag.innerText = this.getNrElements();
+    }
+
+
     update_quantity_tag(id, price, quantity) {
 
         let quantityInput =  document.getElementById('quantity-' + id);
@@ -52,11 +81,11 @@ class Cart {
     }
 
 
-
     fill_icon(id, type) {
         document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle');
         document.getElementById('quantity-icon-'+ type + '-' + id).classList.add('bi-' + type + '-circle-fill');
     }
+
 
     unfill_icon(id, type) {
         document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle-fill');
@@ -70,25 +99,7 @@ class Cart {
         this.add_to_cart(id, quantity);
     }
 
-    #addNewItem(id, quantity) {
-        this._cart[id] = quantity;
-    }
-
-    #updateExisting(id, quantity) {
-
-        let nrElems = this._cart[id];
-
-        if (!this.#isValidQuantity(quantity, nrElems)) {
-            return;
-        } 
-        this._cart[id] += quantity;
-    }
-
-    #save_cart() {
-        Cookie.set('cart', JSON.stringify(this._cart), 30);
-    }
-
-
+   
     add_to_cart(id, quantity) {
         
         if (!this.#existsItem(id)) {
@@ -98,11 +109,6 @@ class Cart {
         }
         this.#save_cart();
         this.setNrElementsTag();
-    }
-
-    setNrElementsTag() {
-        let cart_nr_elements_tag = document.getElementById('cart-quantity');
-        cart_nr_elements_tag.innerText = this.getNrElements();
     }
 
 }

@@ -17,7 +17,7 @@ class RestaurantController extends Controller
      */
     public function index() {
 
-        return view('index',  ['page_title' => 'Home - Restaurant App']);
+        return view('home.index',  ['page_title' => 'Home - Restaurant App']);
     }
 
 
