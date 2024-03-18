@@ -8,8 +8,9 @@
 		<div class="collapse navbar-collapse" id="navbarsExample04">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{route('show_menu')}}">Menu</a>
+					<a class="nav-link" aria-current="page" href="{{route('show_menu')}}">Menu</a>
 				</li>
+				<!--active -->
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('show_cart')}}">
 						Cart <i class="bi bi-cart-fill"></i>

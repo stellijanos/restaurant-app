@@ -1,9 +1,10 @@
 <style>
     #cart-div {
         height:calc(100vh - 156px);
+        width:100%;
         display:flex;
         flex-direction:row;
-
+        
         padding:10px;
         gap:1rem;
     }
@@ -21,7 +22,8 @@
         background-color:#fefefa;
         border-radius:10px;
         height:120px;
-        width:60%;
+        width:calc(100vw - 500px);
+        min-width:400px;
 
         display:flex;
         flex-direction:row;
@@ -86,6 +88,15 @@
         user-select:none;
     }
 
+
+    #checkout {
+        border:1px solid #000;
+        border-radius:10px;
+        min-width:300px;
+        max-width:500px;
+
+    }
+
 </style>
 
 <div class="order-process" style="height:50px; border:1px solid #000;">
@@ -97,6 +108,10 @@
         @foreach($cart as $food) 
             @include('cart.item')
         @endforeach
+    </div>
+    <div id="checkout">
+        Checkout
+
     </div>
 </div>
 <script>
@@ -118,10 +133,10 @@
             delete cart[id];
         } else {
             if (quantity == -1 && cart[id] <=1 ) {
-                alert('Quantity must be greater then 1');
+                // alert('Quantity must be greater then 1');
                 return;
             } else if (quantity == 1 && cart[id] >= 10) {
-                alert('Quantity cannot be greater then 10');
+                // alert('Quantity cannot be greater then 10');
                 return;
             }
             // cart = getCookieValue('cart');
