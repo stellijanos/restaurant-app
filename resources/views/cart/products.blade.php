@@ -94,7 +94,6 @@
         border-radius:10px;
         min-width:300px;
         max-width:500px;
-
     }
 
 </style>
@@ -110,43 +109,14 @@
         @endforeach
     </div>
     <div id="checkout">
-        Checkout
-
+        <p>Order summary</p><hr>
+        <input type="radio" name="delivery-type" id="delivery" value="delivery">
+        <label for="delivery">Delivery</label>
+        <input type="radio" name="delivery-type" id="pickup" value="pickup">
+        <label for="pickup">Personal pick-up</label>
+        <p id="products-sum">0</p><hr>
+        <p id="shipping-fee">0</p><hr>
+        <p id="total-price">0</p><hr>
+        
     </div>
 </div>
-<script>
-    const change_color = (btn_icon, is_dash, remove = false) => {
-        let type = is_dash ? 'dash' : 'plus';
-
-        if (remove) {
-            btn_icon.classList.remove('bi-'+ type +'-circle-fill');
-            btn_icon.classList.add('bi-'+ type +'-circle');
-        } else {
-            btn_icon.classList.remove('bi-'+ type +'-circle');
-            btn_icon.classList.add('bi-'+ type +'-circle-fill');
-        }
-    }
-
-    const modify_cart = (id, quantity = null ) => {
-
-        if (!quantity) {
-            delete cart[id];
-        } else {
-            if (quantity == -1 && cart[id] <=1 ) {
-                // alert('Quantity must be greater then 1');
-                return;
-            } else if (quantity == 1 && cart[id] >= 10) {
-                // alert('Quantity cannot be greater then 10');
-                return;
-            }
-            // cart = getCookieValue('cart');
-            cart[id] += quantity;
-        }
-        setCookie('cart', JSON.stringify(cart), 30);
-        food_cart_nr.innerText = getNrElements(cart);
-        if (!quantity) {
-            window.location.reload();
-        }
-    }
-</script>
-<script src="{{asset('public/js/menu.js')}}" type="text/javascript"></script>

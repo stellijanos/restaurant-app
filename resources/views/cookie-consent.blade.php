@@ -7,5 +7,3 @@
     <button id="decline-cookies" class="btn btn-danger">Decline</button>
     <button id="accept-cookies" class="btn btn-success">Accept</button>
 </div>
-<script type="text/javascript" src="{{asset('public/js/cookie.js')}}"></script>
-

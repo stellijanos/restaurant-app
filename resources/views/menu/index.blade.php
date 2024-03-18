@@ -11,7 +11,4 @@
     @endforeach
 </div>
 
-<script src="{{asset('public/js/menu.js')}}"></script>
-
-
 @endsection
