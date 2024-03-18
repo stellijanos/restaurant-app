@@ -1,5 +1,5 @@
 
-@extends('layouts.header_footer')
+@extends('layouts.header-footer')
 
 @section('content')
 
@@ -35,7 +35,6 @@
     }
 
 </style>
-
 
 
 

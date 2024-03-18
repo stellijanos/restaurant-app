@@ -117,6 +117,13 @@
         if (!quantity) {
             delete cart[id];
         } else {
+            if (quantity == -1 && cart[id] <=1 ) {
+                alert('Quantity must be greater then 1');
+                return;
+            } else if (quantity == 1 && cart[id] >= 10) {
+                alert('Quantity cannot be greater then 10');
+                return;
+            }
             // cart = getCookieValue('cart');
             cart[id] += quantity;
         }

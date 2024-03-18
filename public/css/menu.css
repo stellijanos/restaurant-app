@@ -116,11 +116,10 @@
     width:0px;
 }
 
-.modal-footer.add-to-cart {
-    display:flex;
-    justify-content:center;
+.modal-footer {
+    width:100%;
 }
 
 .modal-footer.add-to-cart>button {
-    width:40%;
+    width:100%;
 }

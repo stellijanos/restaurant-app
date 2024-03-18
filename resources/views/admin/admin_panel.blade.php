@@ -36,7 +36,7 @@
         $option = end($uri);
     ?>
 
-    @include('admin.admin_sidebar')
+    @include('admin.admin-sidebar')
     
     <div id="admin-panel-option">
         @include('admin.options.'.$option.'.index')
