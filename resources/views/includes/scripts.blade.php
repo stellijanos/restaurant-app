@@ -4,5 +4,5 @@
 <script src="{{asset('/public/js/cart.js')}}" ></script>
 <script>
     const cart = new Cart(Cookie.get('cart'));
-    cart.setNrElementsTag();
+    cart.setCartItemsNr();
 </script>

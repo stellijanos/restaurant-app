@@ -4,16 +4,7 @@
 
 class CartUI {
 
-    /**
-     * Updates the price in the UI
-     * 
-     * @param {Number} id - the Id of the item 
-     * @param {Number} price - the price of the item
-     * @param {NUmber} quantity - desired quantity
-     */
-    _setItemPrice(id, price, quantity) {
-        document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
-    }
+
 
     setCartNrElementsTag(nr) {
         let cart_nr_elements_tag = document.getElementById('cart-quantity');
@@ -36,30 +27,50 @@ class CartUI {
         return Number(document.getElementById('quantity-' + id).value);
     }
 
-    _setItemQuantityValue(quantity) {
-        document.getElementById('quantity-' + id).value =  document.getElementById('text-quantity-' + id).innerText = currentquantity + quantity;
+    _setItemQuantityValue(id, quantity) {
+        document.getElementById('quantity-' + id).value =  document.getElementById('text-quantity-' + id).innerText = quantity;
     }
+
+    /**
+     * Updates the price in the UI
+     * 
+     * @param {Number} id - the Id of the item 
+     * @param {Number} price - the price of the item
+     * @param {NUmber} quantity - desired quantity
+     */
+        _setItemPrice(id, quantity, price) {
+            document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
+        }
 
 }
 
 
 
 
-
-
 class Cart {
 
+
+    // create
     constructor(cart) {
         this._cart = JSON.parse(cart);
         this.cartUI = new CartUI();
     }
 
 
+    // read
     /**
      * @returns {Object}
      */
     get() {
         return this._cart;
+    }
+
+
+    /**
+     * saves the cart object as a cookie
+     */
+    #save_cart() {
+        Cookie.set('cart', JSON.stringify(this._cart), 30);
     }
 
 
@@ -70,6 +81,14 @@ class Cart {
     getNrElements() {
         return Object.values(this._cart).reduce((sum, curr) => sum + curr, 0);
     }
+
+
+
+    setCartItemsNr() {
+        let nrItems = this.getNrElements()
+        this.cartUI.setCartNrElementsTag(nrItems);
+    }
+
 
 
 
@@ -109,7 +128,6 @@ class Cart {
     }
 
 
-
     /**
      * 
      * @param {Number} id 
@@ -127,16 +145,6 @@ class Cart {
     }
 
 
-
-    /**
-     * saves the cart object as a cookie
-     */
-    #save_cart() {
-        Cookie.set('cart', JSON.stringify(this._cart), 30);
-    }
-
-
-
     /**
      * Checks if the cart contains the id or not.
      * 
@@ -149,10 +157,7 @@ class Cart {
 
 
 
-
-
-
-    updateQuantity(id, price, quantity) {
+    updateItemQuantity(id, price, quantity) {
 
         let currentquantity = this.cartUI._getItemQuantityValue(id);
 
@@ -160,15 +165,17 @@ class Cart {
             return;
         }
 
-        this.cartUI._setItemQuantityValue(quantity);
-        this.cartUI._setItemPrice(id, price, currentquantity);
+        this.cartUI._setItemQuantityValue(id, currentquantity + quantity);
+        this.cartUI._setItemPrice(id, currentquantity + quantity, price);
     }
 
 
 
-    add_to_cart(id) {
+    addToCart(id) {
     
-        let quantity = this.cartUI._getItemQuantityValue();
+        let quantity = this.cartUI._getItemQuantityValue(id);
+
+        console.log(quantity);
       
         if (!this.#existsItem(id)) {
             this.#addNewItem(id, quantity);
@@ -177,9 +184,8 @@ class Cart {
         }
 
         this.#save_cart();
-        this.cartUI.setCartNrElementsTag();
+        this.cartUI.setCartNrElementsTag(this.getNrElements());
     }
-
 
 }
 

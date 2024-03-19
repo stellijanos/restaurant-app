@@ -16,7 +16,7 @@
                 @include('menu.set-quantity-div')
             </div>
             <div class="modal-footer add-to-cart">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="add-to-cart-{{$food->id}}" onclick="cart.add_to_cart_tag({{$food->id}})" >Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="add-to-cart-{{$food->id}}" onclick="cart.addToCart({{$food->id}})" >Add to cart (<span id="price-{{$food->id}}">{{$food->price}}</span> &euro;)</button>
             </div>                
         </div>
     </div>
