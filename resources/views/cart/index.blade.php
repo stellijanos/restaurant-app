@@ -4,6 +4,6 @@
 @if($_COOKIE['cart'] == '{}') 
     @include('cart.empty')
 @else 
-    @include('cart.products')
+    @include('cart.cart')
 @endif
 @endsection

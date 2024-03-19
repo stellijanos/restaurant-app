@@ -1,46 +1,85 @@
+
+
+
+
+class CartUI {
+
+    /**
+     * Updates the price in the UI
+     * 
+     * @param {Number} id - the Id of the item 
+     * @param {Number} price - the price of the item
+     * @param {NUmber} quantity - desired quantity
+     */
+    _setItemPrice(id, price, quantity) {
+        document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
+    }
+
+    setCartNrElementsTag(nr) {
+        let cart_nr_elements_tag = document.getElementById('cart-quantity');
+        cart_nr_elements_tag.innerText = nr;
+    }
+
+
+    fillIcon(id, type) {
+        document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle');
+        document.getElementById('quantity-icon-'+ type + '-' + id).classList.add('bi-' + type + '-circle-fill');
+    }
+
+
+    unfillIcon(id, type) {
+        document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle-fill');
+        document.getElementById('quantity-icon-'+ type + '-' + id).classList.add('bi-' + type + '-circle');
+    }
+
+    _getItemQuantityValue(id) {
+        return Number(document.getElementById('quantity-' + id).value);
+    }
+
+    _setItemQuantityValue(quantity) {
+        document.getElementById('quantity-' + id).value =  document.getElementById('text-quantity-' + id).innerText = currentquantity + quantity;
+    }
+
+}
+
+
+
+
+
+
 class Cart {
 
     constructor(cart) {
         this._cart = JSON.parse(cart);
+        this.cartUI = new CartUI();
     }
 
 
+    /**
+     * @returns {Object}
+     */
     get() {
         return this._cart;
     }
 
 
+    /**
+     * 
+     * @returns {Number} -nr of items in the cart.
+     */
     getNrElements() {
         return Object.values(this._cart).reduce((sum, curr) => sum + curr, 0);
     }
 
 
-    #addNewItem(id, quantity) {
-        this._cart[id] = quantity;
-    }
 
-
-    #updateExisting(id, quantity) {
-
-        let nrElems = this._cart[id];
-
-        if (!this.#isValidQuantity(quantity, nrElems)) {
-            return;
-        } 
-        this._cart[id] += quantity;
-    }
-
-
-    #save_cart() {
-        Cookie.set('cart', JSON.stringify(this._cart), 30);
-    }
-
-
-    #existsItem(id) {
-        return this._cart.hasOwnProperty(id);
-    }
-
-
+    /**
+     * Validates the quantity of an item to be added to the cart.
+     * 
+     * @param {Number} quantity - the quantity of item we want to add.
+     * @param {Number} nrItems - the the quantity of that item that already exists in the cart.
+     * @returns {boolean}  - returns true, if the final quantity of an item in the cart is between 1 and 10 (inclusive).
+     */
     #isValidQuantity(quantity, nrItems) {
 
         if (quantity + nrItems < 1) {
@@ -54,61 +93,93 @@ class Cart {
     }
 
 
-    #update_price_tag(id, price, quantity) {
-        document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
+
+    /**
+     * Adds a new item to the cart.
+     * 
+     * @param {Number} id - the id of the item.
+     * @param {Number}} quantity - the quantity we want to add.
+     * @returns the cart with the given quantity if its valid, otherwise nothing.
+     */
+    #addNewItem(id, quantity) {
+        if (!this.#isValidQuantity(quantity, 0)) {
+            return;
+        }
+        this._cart[id] = quantity;
     }
 
 
-    setNrElementsTag() {
-        let cart_nr_elements_tag = document.getElementById('cart-quantity');
-        cart_nr_elements_tag.innerText = this.getNrElements();
+
+    /**
+     * 
+     * @param {Number} id 
+     * @param {Number} quantity 
+     * @returns 
+     */
+    #updateExisting(id, quantity) {
+
+        let nrElems = this._cart[id];
+
+        if (!this.#isValidQuantity(quantity, nrElems)) {
+            return;
+        } 
+        this._cart[id] += quantity;
     }
 
 
-    update_quantity_tag(id, price, quantity) {
 
-        let quantityInput =  document.getElementById('quantity-' + id);
+    /**
+     * saves the cart object as a cookie
+     */
+    #save_cart() {
+        Cookie.set('cart', JSON.stringify(this._cart), 30);
+    }
 
-        let currentquantity = Number(quantityInput.value);
+
+
+    /**
+     * Checks if the cart contains the id or not.
+     * 
+     * @param  {Number} id - the id of the element to check.
+     * @returns {bool} - true if the item exists, false otherwise.
+     */
+    #existsItem(id) {
+        return this._cart.hasOwnProperty(id);
+    }
+
+
+
+
+
+
+    updateQuantity(id, price, quantity) {
+
+        let currentquantity = this.cartUI._getItemQuantityValue(id);
 
         if (!this.#isValidQuantity(quantity, currentquantity)) {
             return;
         }
-        quantityInput.value =  document.getElementById('text-quantity-' + id).innerText = currentquantity += quantity;
 
-        this.#update_price_tag(id, price, currentquantity);
-
+        this.cartUI._setItemQuantityValue(quantity);
+        this.cartUI._setItemPrice(id, price, currentquantity);
     }
 
 
-    fill_icon(id, type) {
-        document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle');
-        document.getElementById('quantity-icon-'+ type + '-' + id).classList.add('bi-' + type + '-circle-fill');
-    }
 
-
-    unfill_icon(id, type) {
-        document.getElementById('quantity-icon-'+ type + '-' + id).classList.remove('bi-' + type + '-circle-fill');
-        document.getElementById('quantity-icon-'+ type + '-' + id).classList.add('bi-' + type + '-circle');
-    }
-
-
-    add_to_cart_tag(id) {
+    add_to_cart(id) {
     
-        let quantity = Number(document.getElementById('quantity-' + id).value);
-        this.add_to_cart(id, quantity);
-    }
-
-   
-    add_to_cart(id, quantity) {
-        
+        let quantity = this.cartUI._getItemQuantityValue();
+      
         if (!this.#existsItem(id)) {
             this.#addNewItem(id, quantity);
         } else {
             this.#updateExisting(id, quantity);
         }
+
         this.#save_cart();
-        this.setNrElementsTag();
+        this.cartUI.setCartNrElementsTag();
     }
 
+
 }
+
