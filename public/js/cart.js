@@ -4,8 +4,6 @@
 
 class CartUI {
 
-
-
     setCartNrElementsTag(nr) {
         let cart_nr_elements_tag = document.getElementById('cart-quantity');
         cart_nr_elements_tag.innerText = nr;
@@ -128,6 +126,11 @@ class Cart {
     }
 
 
+    #addItem(id, quantity) {
+        this._cart[id] = (this._cart[id] || 0) + quantity;
+    }
+
+
     /**
      * 
      * @param {Number} id 
@@ -176,6 +179,7 @@ class Cart {
         let quantity = this.cartUI._getItemQuantityValue(id);
 
         console.log(quantity);
+        
       
         if (!this.#existsItem(id)) {
             this.#addNewItem(id, quantity);
@@ -185,6 +189,29 @@ class Cart {
 
         this.#save_cart();
         this.cartUI.setCartNrElementsTag(this.getNrElements());
+    }
+
+
+
+    updateCartItem(id, price, quantity) {
+        this.updateItemQuantity(id, price, quantity);
+
+        this.#updateExisting(id, quantity);
+
+        this.#save_cart();
+        this.cartUI.setCartNrElementsTag(this.getNrElements());
+    }
+
+
+
+    removeItem(id) {
+        console.log(id);
+        if (!this.#existsItem()) {
+            alert('Item does not exist!');
+            return;
+        }
+        delete this._cart[id];
+        window.location.reload();
     }
 
 }

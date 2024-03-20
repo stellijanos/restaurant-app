@@ -13,4 +13,5 @@
         </div>
         @include($source.'delete-button')
     </div>
+    <hr>
 @endforeach

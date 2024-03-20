@@ -187,7 +187,7 @@ class FoodController extends Controller
 
             $food->save();
 
-            return redirect()->route('admin_panel_show_menu_items_by_category', ['id' => $food->category_id])->with('message', 'Menu item updated successfully!');
+            return redirect()->back()->with('message', 'Menu item updated successfully!');
 
         } catch (ModelNotFoundException $e) {
             abort(404);

@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en" class="">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,10 @@
     <body>
         @include('includes.navbar')
         @yield('content')
-        @include('includes.cookie-consent')
+
+        @if(!isset($_COOKIE['cookie_consent']) || $_COOKIE['cookie_consent'] !== "accepted")
+            @include('includes.cookie-consent')
+        @endif
         @include('includes.footer')
         @include('includes.scripts')
     </body>

@@ -6,7 +6,7 @@
 <style>
 
     body {
-        background-color: #3c6e71;
+        /* background-color: #3c6e71; */
     }
 
     #login-form {
