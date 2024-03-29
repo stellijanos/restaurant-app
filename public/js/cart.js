@@ -1,7 +1,4 @@
 
-
-
-
 class CartUI {
 
     setCartNrElementsTag(nr) {
@@ -36,11 +33,26 @@ class CartUI {
      * @param {Number} price - the price of the item
      * @param {NUmber} quantity - desired quantity
      */
-        _setItemPrice(id, quantity, price) {
-            document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
-        }
+    _setItemPrice(id, quantity, price) {
+        document.getElementById('price-' + id).innerText = (price * quantity).toFixed(2);
+    }
+
+
+    updateCheckoutElements() {
+        let delivery_elem = document.getElementById('delivery');
+        let pickup_elem = document.getElementById('pickup');
+        let products_sum_elem = document.getElementById('products-sum');
+        let shipping_fee_elem = document.getElementById('shipping-fee');
+        let total_price_elem = document.getElementById('total-price');
+
+        // total_price_elem.innerText = 69;
+
+
+    }
 
 }
+
+
 
 
 
@@ -127,7 +139,13 @@ class Cart {
 
 
     #addItem(id, quantity) {
-        this._cart[id] = (this._cart[id] || 0) + quantity;
+
+        let nrElems= this._cart[id] || 0;
+        if (!this.#isValidQuantity(quantity, nrElems)) {
+            return;
+        }
+
+        this._cart[id] = nrElems + quantity;
     }
 
 
@@ -160,6 +178,8 @@ class Cart {
 
 
 
+
+
     updateItemQuantity(id, price, quantity) {
 
         let currentquantity = this.cartUI._getItemQuantityValue(id);
@@ -170,6 +190,7 @@ class Cart {
 
         this.cartUI._setItemQuantityValue(id, currentquantity + quantity);
         this.cartUI._setItemPrice(id, currentquantity + quantity, price);
+        return true;
     }
 
 
@@ -180,38 +201,44 @@ class Cart {
 
         console.log(quantity);
         
-      
-        if (!this.#existsItem(id)) {
-            this.#addNewItem(id, quantity);
-        } else {
-            this.#updateExisting(id, quantity);
-        }
+        this.#addItem(id, quantity);
 
         this.#save_cart();
         this.cartUI.setCartNrElementsTag(this.getNrElements());
+    }
+
+    #removeFromCart(id) {
+        delete this._cart[id];
+        this.#save_cart();
     }
 
 
 
     updateCartItem(id, price, quantity) {
-        this.updateItemQuantity(id, price, quantity);
 
-        this.#updateExisting(id, quantity);
+        if (!this.#existsItem(id)) {
+            return;
+        } 
 
-        this.#save_cart();
-        this.cartUI.setCartNrElementsTag(this.getNrElements());
+        if (this.updateItemQuantity(id, price, quantity)) {
+            this._cart[id] += quantity;
+            this.#save_cart();
+            this.cartUI.setCartNrElementsTag(this.getNrElements());
+        }
     }
 
 
 
     removeItem(id) {
-        console.log(id);
-        if (!this.#existsItem()) {
-            alert('Item does not exist!');
+        if (!this.#existsItem(id)) {
+            alert('item does not exist')
             return;
         }
-        delete this._cart[id];
-        window.location.reload();
+
+        if(window.confirm("Are you sure you want to delete?")) {
+            this.#removeFromCart(id);
+            window.location.reload();
+        }
     }
 
 }

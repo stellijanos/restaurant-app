@@ -8,3 +8,8 @@
     <p id="shipping-fee">0</p><hr>
     <p id="total-price">0</p><hr>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    cart.cartUI.updateCheckoutElements();
+});
+</script>
