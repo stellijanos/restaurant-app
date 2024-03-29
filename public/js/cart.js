@@ -45,7 +45,7 @@ class CartUI {
         let shipping_fee_elem = document.getElementById('shipping-fee');
         let total_price_elem = document.getElementById('total-price');
 
-        total_price_elem.innerText = 69;
+        // total_price_elem.innerText = 69;
 
 
     }
