@@ -2,7 +2,7 @@
     <h3 style="text-align:center">Fill out your information</h3>
     <p style="text-align:center">(all fields marked with * are mandatory)</p>
     @if($errors->any())
-        <div style="background-color:#ff7f7f; border-radius:10px">
+        <div style="background-color:#ff7f7f; border-radius:10px; padding:10px; margin-bottom:10px;">
             @foreach($errors->all() as $error) 
                 <li>{{$error}}</li>
             @endforeach
@@ -26,7 +26,7 @@
             <input type="email" class="form-control" name="email" id="email" placeholder="Email">
             <label for="email">Email *</label>
         </div>
-        @if($delivery_type !== 'pickup') 
+        @if(trim($_COOKIE['delivery_type'],'"') !== 'pickup')
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="street" id="street" placeholder="Street">
                 <label for="street">Street *</label>
@@ -41,8 +41,9 @@
             </div>
         @endif
         <div class="mb-3">
-            <input type="hidden" name="delivery-type" value="{{$delivery_type}}">
+            <input type="hidden" name="delivery-type" value="{{trim($_COOKIE['delivery_type'],'"')}}">
             <button class="btn btn-success" type="submit" style="width:100%;">Send order</button>
         </div>
     </form>
 </div>
+

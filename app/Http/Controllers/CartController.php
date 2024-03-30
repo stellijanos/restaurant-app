@@ -36,7 +36,7 @@ class CartController extends Controller
 
 
     public function show_checkout() {
-        if (url()->previous() !== route('show_cart')) {
+        if (url()->previous() !== route('show_cart') && url()->previous() !== route('show_checkout') ) {
             return redirect()->route('show_cart');
         }
 
@@ -71,12 +71,23 @@ class CartController extends Controller
     public function create_order() {
 
         request()->validate([
-            'delivery-type' => 'required|string',
+            'delivery-type' => 'required|string'
+        ]);
+
+        $validations = [
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|email'
-        ]);
+        ];
+
+        if (request()->get('delivery-type') !== 'pickup') {
+            $validations['street'] = 'required|string';
+            $validations['number'] = 'required|string';
+        }
+
+
+        request()->validate($validations); 
 
 
         $data = request()->all();
