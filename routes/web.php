@@ -58,7 +58,7 @@ Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
 
 Route::get('/checkout', [CartController::class, 'show_checkout'])->name('show_checkout');
 Route::post('/checkout', [CartController::class, 'create_order'])->name('place-order');
-
+Route::get('/order-successful',[CartController::class, 'order_successful'])->name('order-successful');
 
 Route::fallback(function () {
     abort(404);

@@ -20,7 +20,7 @@
         <h3>Pricing details</h3>
         <ul>
             <li>Produts price: <b>{{$products_price}}</b>&euro;</li>
-            <li>Shipping fee: <b>{{$shipping_fee}}</b>&euro; ({{trim($_COOKIE['delivery_type'],'"')}})</li>
+            <li>Shipping fee: <b>{{$shipping_fee}}</b>&euro; ({{trim($_COOKIE['delivery_type'] ?? 'delivery','"')}})</li>
             <li>Total price: <b>{{$products_price + $shipping_fee}}</b>&euro;</li>
         </ul>
     </div>

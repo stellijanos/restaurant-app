@@ -26,7 +26,7 @@
             <input type="email" class="form-control" name="email" id="email" placeholder="Email">
             <label for="email">Email *</label>
         </div>
-        @if(trim($_COOKIE['delivery_type'],'"') !== 'pickup')
+        @if(trim($_COOKIE['delivery_type'] ?? '','"') !== 'pickup')
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="street" id="street" placeholder="Street">
                 <label for="street">Street *</label>
@@ -41,7 +41,7 @@
             </div>
         @endif
         <div class="mb-3">
-            <input type="hidden" name="delivery-type" value="{{trim($_COOKIE['delivery_type'],'"')}}">
+            <input type="hidden" name="delivery-type" value="{{trim($_COOKIE['delivery_type'] ?? '','"')}}">
             <button class="btn btn-success" type="submit" style="width:100%;">Send order</button>
         </div>
     </form>

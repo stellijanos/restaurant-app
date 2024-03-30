@@ -40,7 +40,7 @@ class CartUI {
 
     setCheckoutElements() {
 
-        let delivery_type_value = Cookie.get('delivery_type').replace(/^"|"$/g, '');
+        let delivery_type_value = (Cookie.get('delivery_type') || 'delivery').replace(/^"|"$/g, '');
         document.getElementById(delivery_type_value).checked = true;
 
         let delivery_type = document.querySelector('input[name="delivery-type"]:checked');
