@@ -64,5 +64,9 @@ class RestaurantController extends Controller
             'products_price' => $products_price
         ]);
     }
+
+    public function show_checkout() {
+
+    }
 }
 

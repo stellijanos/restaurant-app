@@ -264,10 +264,5 @@ class Cart {
         input.checked = true;
         this.cartUI.setCheckoutElements();
     }
-
-    updateCheckoutTotalPrice() {
-
-    }
-
 }
 

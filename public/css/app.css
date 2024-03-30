@@ -1,3 +1,11 @@
+html {
+    min-width:320px;
+}
+
+body {
+    background-color:#D3D3D3;
+}
+
 footer {
     color:#fff;
     
@@ -17,8 +25,4 @@ footer {
 footer>p {
     margin:auto;
 
-}
-
-body {
-    background-color:#D3D3D3;
 }
