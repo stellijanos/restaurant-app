@@ -52,4 +52,9 @@
             window.location.href=url;
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('admin-orders').classList.add('active'); 
+    });
+
 </script>
