@@ -42,11 +42,14 @@
     @include('admin.admin-sidebar')
     
     <div id="admin-panel-option">
-        @include('admin.options.'.$option.'.index')
+
+       <?php try { ?>
+            @include('admin.options.'.$option.'.index')
+         <?php } catch (InvalidArgumentException $e) { ?>
+            @include('admin.options.'.end($uri).'.index')
+        <?php } ?>
     </div>
-
 </div>
-
 
 @endsection
 
