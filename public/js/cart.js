@@ -38,17 +38,27 @@ class CartUI {
     }
 
 
-    updateCheckoutElements() {
-        let delivery_elem = document.getElementById('delivery');
-        let pickup_elem = document.getElementById('pickup');
+    setCheckoutElements() {
+        let delivery_type = document.querySelector('input[name="delivery-type"]:checked');
         let products_sum_elem = document.getElementById('products-sum');
         let shipping_fee_elem = document.getElementById('shipping-fee');
         let total_price_elem = document.getElementById('total-price');
 
-        // total_price_elem.innerText = 69;
-
-
+        // products_sum_elem.innerText = price;
+        shipping_fee_elem.innerText = delivery_type.value === "pickup" || Number(products_sum_elem.innerText) >=100 ? 0 : 5;
+        total_price_elem.innerText = Number(products_sum_elem.innerText) + Number(shipping_fee_elem.innerText); 
     }
+
+    getPrices() {
+        return document.querySelectorAll("span[id^='price-']");
+    }
+
+
+    setProductsPrice(price) {
+        document.getElementById('products-sum').innerText = price;
+    }
+
+    
 
 }
 
@@ -178,8 +188,6 @@ class Cart {
 
 
 
-
-
     updateItemQuantity(id, price, quantity) {
 
         let currentquantity = this.cartUI._getItemQuantityValue(id);
@@ -198,11 +206,8 @@ class Cart {
     addToCart(id) {
     
         let quantity = this.cartUI._getItemQuantityValue(id);
-
-        console.log(quantity);
         
         this.#addItem(id, quantity);
-
         this.#save_cart();
         this.cartUI.setCartNrElementsTag(this.getNrElements());
     }
@@ -223,8 +228,22 @@ class Cart {
         if (this.updateItemQuantity(id, price, quantity)) {
             this._cart[id] += quantity;
             this.#save_cart();
+
+            let total_price = this.#calculateTotalPrice();
+
+            this.cartUI.setProductsPrice(total_price);
+            this.cartUI.setCheckoutElements();
             this.cartUI.setCartNrElementsTag(this.getNrElements());
         }
+    }
+
+
+    #calculateTotalPrice() {
+        return Array.from(this.cartUI.getPrices())
+            .map(price => Number(price.innerText))
+            .reduce((acc, curr) => {
+                return acc + curr;
+            },0);
     }
 
 
@@ -239,6 +258,15 @@ class Cart {
             this.#removeFromCart(id);
             window.location.reload();
         }
+    }
+
+    updateCheckoutShippingFee(input) {
+        input.checked = true;
+        this.cartUI.setCheckoutElements();
+    }
+
+    updateCheckoutTotalPrice() {
+
     }
 
 }

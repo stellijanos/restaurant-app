@@ -51,13 +51,18 @@ class RestaurantController extends Controller
         $ids = array_keys($cart);
         $foods = Food::whereIn('id', $ids)->get();
 
+        $products_price = 0; 
+
         foreach($foods as $food) {
             $food->quantity = $cart[$food->id];
+            $products_price += $food->price * $food->quantity;
         }
 
         return view('cart.index',[
             'page_title' => 'Cart - Restaurant App',
-            'cart' => $foods
+            'cart' => $foods,
+            'products_price' => $products_price
         ]);
     }
 }
+
