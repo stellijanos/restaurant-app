@@ -83,9 +83,8 @@ p[class="remove"] {
     cursor:pointer;
 }
 
-i[class="bi"]{
+i:hover{
     cursor:pointer;
-    color:green;
 }
 
 #checkout button {
@@ -111,12 +110,19 @@ i[class="bi"]{
     .item {
         height:150px;
     }
+
+
 }
 
 @media screen and (max-width:750px) {
     #cart-div {
         display:flex;
         flex-direction:column;
+    }
+
+    #checkout {
+        width:92%;
+        margin:auto;
     }
 
     #products {

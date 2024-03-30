@@ -39,14 +39,17 @@ class CartUI {
 
 
     setCheckoutElements() {
+
+        let delivery_type_value = Cookie.get('delivery_type').replace(/^"|"$/g, '');
+        document.getElementById(delivery_type_value).checked = true;
+
         let delivery_type = document.querySelector('input[name="delivery-type"]:checked');
         let products_sum_elem = document.getElementById('products-sum');
         let shipping_fee_elem = document.getElementById('shipping-fee');
         let total_price_elem = document.getElementById('total-price');
-
-        // products_sum_elem.innerText = price;
+       
         shipping_fee_elem.innerText = delivery_type.value === "pickup" || Number(products_sum_elem.innerText) >=100 ? 0 : 5;
-        total_price_elem.innerText = Number(products_sum_elem.innerText) + Number(shipping_fee_elem.innerText); 
+        total_price_elem.innerText = Number(products_sum_elem.innerText) + Number(shipping_fee_elem.innerText);
     }
 
     getPrices() {
@@ -57,8 +60,6 @@ class CartUI {
     setProductsPrice(price) {
         document.getElementById('products-sum').innerText = price;
     }
-
-    
 
 }
 
@@ -262,6 +263,9 @@ class Cart {
 
     updateCheckoutShippingFee(input) {
         input.checked = true;
+
+        Cookie.set('delivery_type', JSON.stringify(input.value), 30);        
+        this.#save_cart();
         this.cartUI.setCheckoutElements();
     }
 }

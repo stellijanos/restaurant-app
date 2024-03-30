@@ -53,10 +53,14 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 Route::get('/menu', [RestaurantController::class, 'show_menu'])->name('show_menu');
+
 Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
+
 Route::get('/checkout', [CartController::class, 'show_checkout'])->name('show_checkout');
+Route::post('/checkout', [CartController::class, 'create_order'])->name('place-order');
 
 
 Route::fallback(function () {
     abort(404);
 });
+
