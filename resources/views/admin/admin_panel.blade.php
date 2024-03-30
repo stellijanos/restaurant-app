@@ -33,7 +33,10 @@
 
     <?php   
         $uri = explode("/", $_SERVER['REQUEST_URI']);
-        $option = end($uri);
+        
+        $index = array_search('admin', $uri);
+
+        $option = $uri[$index+1] ?? '';
     ?>
 
     @include('admin.admin-sidebar')

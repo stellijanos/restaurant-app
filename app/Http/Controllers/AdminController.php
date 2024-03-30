@@ -25,18 +25,7 @@ class AdminController extends Controller
     }
 
 
-    /**
-     * Display the orders page of the admin panel.
-     * 
-     * This method returns a view that represents the orders page of the admin panel.
-     * 
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function show_orders() {
-        return view('admin.admin_panel',[
-            'page_title' => 'Admin Panel - Restaurant App'
-        ]);
-    }
+   
 
  
     /**
