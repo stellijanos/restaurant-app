@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\RestaurantController;
@@ -52,8 +53,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 Route::get('/menu', [RestaurantController::class, 'show_menu'])->name('show_menu');
-Route::get('/cart', [RestaurantController::class, 'show_cart'])->name('show_cart');
-Route::get('/checkout', [RestaurantController::class, 'show_checkout'])->name('show_checkout');
+Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
+Route::get('/checkout', [CartController::class, 'show_checkout'])->name('show_checkout');
 
 
 Route::fallback(function () {
