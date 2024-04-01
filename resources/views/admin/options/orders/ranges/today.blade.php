@@ -1,10 +1,5 @@
 
-<div id="chart-div" style="width:500px; height: 300px">
-    <canvas id="orders-chart"></canvas>
-</div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const chart = document.getElementById('orders-chart');
 

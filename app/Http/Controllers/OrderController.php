@@ -150,15 +150,65 @@ class OrderController extends Controller
     }
 
     private function getWeeklyData() {
-        return array();
+        $start = $this->todaysDate()->modify('monday this week');
+        $end = $this->todaysDate()->modify('sunday this week');
+
+        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
+                            ->whereBetween('created_at', [$start, $end])
+                            ->groupBy(DB::raw('DATE(created_at)'))
+                            ->get();
+
+        $week = [];
+
+        for ($i = 0; $i <= 6; $i++) {
+            $day = clone $start;
+            $day->modify("+$i days");
+            $week[$day->format('Y-m-d')] = 0;
+        }
+        
+        return array_merge($week, $chartData->pluck('nr', 'date')->toArray());
     }
 
     private function getMonthlyData() {
-        return array();
+
+        $firstDayOfMonth = new Datetime(date('Y-m-01'));
+        $lastDayOfMonth = new DateTime(date('Y-m-t'));
+
+        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
+                    ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
+                    ->groupBy(DB::raw('DATE(created_at)'))
+                    ->get();
+
+        $month = [];
+
+        for ($i = 0; $i <= $lastDayOfMonth->format('d'); $i++) {
+            $day = clone $firstDayOfMonth;
+            $day->modify("+$i days");
+            $month[$day->format('Y-m-d')] = 0;
+        }
+
+        return array_merge($month, $chartData->pluck('nr', 'date')->toArray());
     }
 
     private function getYearlyData() {
-        return array();
+        $firstDayOfYear = new DateTime(date('01.01.Y'));
+        $lastDayOfYear = new DateTime(date('31.12.Y'));
+
+        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
+                            ->whereBetween('created_at', [$firstDayOfYear, $lastDayOfYear])
+                            ->groupBy(DB::raw('DATE(created_at)'))
+                            ->get();
+
+        $year = [];
+
+
+        for ($i = 0; $i <= $lastDayOfYear->format('z'); $i++) {
+            $day = clone $firstDayOfYear;
+            $day->modify("+$i days");
+            $year[$day->format('Y-m-d')] = 0;
+        }
+
+        return array_merge($year, $chartData->pluck('nr', 'date')->toArray());
     }
 
     /**
@@ -193,7 +243,7 @@ class OrderController extends Controller
 
 
 
-        print_r($data);
+        // print_r($data);
 
 
         return view('admin.admin_panel',[

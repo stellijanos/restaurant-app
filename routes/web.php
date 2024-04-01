@@ -49,9 +49,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::put('/admin/home', [AdminController::class, 'update_profile'])->name('update_admin_profile');
 
+    Route::get('/admin/orders/status={status}', [OrderController::class, 'show_orders_by_status'])->name('show_orders_by_status');
     // Route::get('/admin/orders', [AdminController::class, 'show_dashboard'])->name('admin_panel_orders_dashboard');
     Route::get('/admin/orders/{range?}', [OrderController::class, 'show_orders'])->name('admin_panel_show_orders');
-    Route::get('/admin/orders/{status}', [OrderController::class, 'show_orders_by_status'])->name('show_orders_by_status');
     Route::put('/admin/orders/{id}',[OrderController::class, 'update_order_status'])->name('update_order_status');
 
 

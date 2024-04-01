@@ -1,15 +1,9 @@
 
-<div id="chart-div" style="width:500px; height: 300px">
-    <canvas id="orders-chart"></canvas>
-</div>
-
-
 <?php
     $label_arr = array_keys($chart_data);
     $labels = json_encode($label_arr);
 ?>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const chart = document.getElementById('orders-chart');
 

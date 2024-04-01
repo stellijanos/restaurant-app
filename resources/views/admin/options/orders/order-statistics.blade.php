@@ -24,7 +24,7 @@ $lastDayOfMonth = date('t.m.Y');
 
 $firstDayOfYear = date('01.01.Y');
 $lastDayOfYear = date('31.12.Y');
-?>	
+?>
 
 <select name="show-range" id="show-range" class="form-select" style="width:500px" onchange="getChart(this)">
     <option value="{{route('admin_panel_show_orders')}}" {{$data_range === 'today' ? 'selected' : ''}}>Today ({{$today->format('d.m.Y')}})</option>
@@ -34,6 +34,12 @@ $lastDayOfYear = date('31.12.Y');
     <option value="{{route('admin_panel_show_orders',['range' => 'yearly'])}}" {{$data_range === 'yearly' ? 'selected' : ''}}>This year ({{$firstDayOfYear}} - {{$lastDayOfYear}})</option>
 </select>
 
+<div id="chart-div" style="width:60%; height: 60%; margin:auto; display:flex; justify-content:center; align-items:center">
+    <canvas id="orders-chart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 @include('admin.options.orders.ranges.'.$data_range)
 
 <script>
@@ -41,6 +47,5 @@ $lastDayOfYear = date('31.12.Y');
 		window.location.href = select.value;
 	}
 </script>
-
 
 
