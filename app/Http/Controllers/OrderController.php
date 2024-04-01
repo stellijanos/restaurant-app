@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -92,6 +93,15 @@ class OrderController extends Controller
     }
 
 
+    private function getStatusNrOrders() {
+        $result = Order::select('status', DB::raw('COUNT(status) as nr'))
+                        ->groupBy('status')
+                        ->get();
+
+        return $result->pluck('nr', 'status')->toArray();
+    }
+
+
          /**
      * Display the orders page of the admin panel.
      * 
@@ -102,17 +112,21 @@ class OrderController extends Controller
     public function show_orders() { 
         return view('admin.admin_panel',[
             'page_title' => 'Orders | Admin Panel - Restaurant App',
-            'orders' => null
+            'orders' => null,
+            'status_counts' => $this->getStatusNrOrders()
         ]);
     }
+
+
 
     function show_orders_by_status($status) {
         $status = filter_var($status, FILTER_SANITIZE_STRING);
 
         return view('admin.admin_panel',[
             'page_title' => 'Orders | Admin Panel - Restaurant App',
-            'orders' => Order::where('status', $status)->orderBy('created_at')->with('orderItems')->get(),
-            'current_status' => $status
+            'orders' => Order::where('status', $status)->orderBy('updated_at')->with('orderItems')->get(),
+            'current_status' => $status,
+            'status_counts' => $this->getStatusNrOrders()
         ]);
     }
 
