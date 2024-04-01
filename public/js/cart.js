@@ -268,5 +268,6 @@ class Cart {
         this.#save_cart();
         this.cartUI.setCheckoutElements();
     }
+    
 }
 

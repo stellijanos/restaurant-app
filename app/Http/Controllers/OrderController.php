@@ -95,8 +95,6 @@ class OrderController extends Controller
             abort(404);
         }
 
-        setcookie('cart', '{}', -1, '/');
-
         return view('cart.order_successful', [
             'page_title' => 'Order successful - Restaurant App'
         ]);

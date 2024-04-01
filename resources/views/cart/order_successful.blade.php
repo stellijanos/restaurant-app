@@ -17,5 +17,8 @@
     <h4>(<a href="{{route('home')}}">Go to homepage</a>)</h4>
 </div>
 
+<script>
+    Cookie.set('cart', '{}', 30);
+</script>
 
 @endsection
