@@ -30,7 +30,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin/home', [AdminController::class, 'show_home'])->name('admin_panel_show_home');
 
 
-    Route::get('/admin/customers', [AdminController::class, 'show_customers'])->name('admin_panel_show_customers');
 
 
     Route::get('/admin/menu_categories', [CategoryController::class, 'show'])->name('admin_panel_show_menu_categories');
@@ -50,9 +49,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::put('/admin/home', [AdminController::class, 'update_profile'])->name('update_admin_profile');
 
-    Route::get('/admin/orders', [OrderController::class, 'show_orders'])->name('admin_panel_show_orders');
+    // Route::get('/admin/orders', [AdminController::class, 'show_dashboard'])->name('admin_panel_orders_dashboard');
+    Route::get('/admin/orders/{range?}', [OrderController::class, 'show_orders'])->name('admin_panel_show_orders');
     Route::get('/admin/orders/{status}', [OrderController::class, 'show_orders_by_status'])->name('show_orders_by_status');
     Route::put('/admin/orders/{id}',[OrderController::class, 'update_order_status'])->name('update_order_status');
+
+
+    Route::get('/admin/dashboard', [AdminController::class, 'show_dashboard'])->name('admin_panel_show_dashboard');
+    
 });
 
 

@@ -21,6 +21,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         Cookie.set('cart', '{}', 30);
         Cookie.set('delivery_type', '', -1);
+        cart.setCartItemsNr();
     });
     
 </script>

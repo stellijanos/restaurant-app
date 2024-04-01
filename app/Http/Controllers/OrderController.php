@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\OrderItem;
+use DateInterval;
+use DateTime;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +51,7 @@ class OrderController extends Controller
         if( request()->get('delivery-type') !== 'pickup' ) {
             $order->address = filter_var(request()->get('street'),FILTER_SANITIZE_STRING) . ', ' .filter_var(request()->get('number'),FILTER_SANITIZE_STRING);
         } else {
-            $order->address = '- (pickup)';
+            $order->address = 'pickup';
         }
 
         $order->save();
@@ -71,10 +73,16 @@ class OrderController extends Controller
 
             $order_item = new OrderItem();
 
+            $order_item->name = $food->name;
             $order_item->food_id = $food->id;
             $order_item->price = $food->price;
             $order_item->quantity = filter_var($food->quantity, FILTER_SANITIZE_STRING);
             $order->orderItems()->save($order_item);
+        }
+
+        if ($order->shipping_fee = $order->address !== 'pickup' && $products_price >= 100) {
+            $order->shipping_fee = 5;
+            $order->save();
         }
 
         return redirect()->route('order-successful');
@@ -102,19 +110,89 @@ class OrderController extends Controller
     }
 
 
-         /**
+    private function todaysDate() {
+        return new Datetime();
+    }
+
+    private function sevenDayAgoDate() {
+        return (new DateTime())->sub(new DateInterval('P7D'));
+    }
+
+
+
+    private function getTodayData() {
+        $today = $this->todaysDate();
+
+        return array(Order::where('created_at', '=', $today)->count());
+    }
+
+    private function getLast7DaysData() {
+
+        $start = $this->sevenDayAgoDate();
+        $today = $this->todaysDate();
+
+        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
+                            ->whereBetween('created_at', [$start, $today])
+                            ->groupBy(DB::raw('DATE(created_at)'))
+                            ->get();
+        
+        return $chartData->pluck('nr', 'date')->toArray();
+
+    }
+
+    private function getWeeklyData() {
+        return array();
+    }
+
+    private function getMonthlyData() {
+        return array();
+    }
+
+    private function getYearlyData() {
+        return array();
+    }
+
+    /**
      * Display the orders page of the admin panel.
      * 
      * This method returns a view that represents the orders page of the admin panel.
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_orders() { 
-        return view('admin.admin_panel',[
-            'page_title' => 'Orders | Admin Panel - Restaurant App',
-            'orders' => null,
-            'status_counts' => $this->getStatusNrOrders()
-        ]);
+    public function show_orders($range = 'today') { 
+
+        switch($range) {
+            case 'today': 
+                $data = $this->getTodayData();
+                break;
+            case 'last7days':
+                $data = $this->getLast7DaysData();
+                break;
+            case 'weekly': 
+                $data = $this->getWeeklyData();
+                break;
+            case 'monthly': 
+                $data = $this->getMonthlyData();
+                break;
+            case 'yearly':
+                $data = $this->getYearlyData();
+                break;
+            default:
+                $data = array();
+        }
+
+
+
+
+        print_r($data);
+
+
+        // return view('admin.admin_panel',[
+        //     'page_title' => 'Orders | Admin Panel - Restaurant App',
+        //     'orders' => null,
+        //     'status_counts' => $this->getStatusNrOrders(),
+        //     'chart_data' => $data
+        // ]);
     }
 
 

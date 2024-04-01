@@ -35,7 +35,7 @@ class AdminController extends Controller
      * 
      * @return \Illuminate\Contracts\View\View
      */
-    public function show_customers() {
+    public function show_dashboard() {
         return view('admin.admin_panel',[
             'page_title' => 'Admin Panel - Restaurant App'
         ]);

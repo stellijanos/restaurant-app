@@ -41,7 +41,7 @@
     @include($source.'bar')
 
     @if(is_null($orders)) 
-        @include($source.'no-status-chosen')
+        @include($source.'order-statistics')
     @elseif(count($orders) === 0)
         @include($source.'no-orders')
     @else

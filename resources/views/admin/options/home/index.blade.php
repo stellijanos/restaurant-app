@@ -25,33 +25,57 @@
 </div>
 <hr>
 
-<div id="chart-div">
+<?php
 
-<canvas id="janos-chart"></canvas>
-</div>
+$today = new DateTime();
+
+$start = clone $today;
+
+$start->sub(new DateInterval('P7D'));
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const chart = document.getElementById('janos-chart');
+echo $start->format('d-m-Y') . ' - '. $today->format('d-m-Y').'<br>';
 
-    new Chart(chart, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+
+########################## last week
+
+$start_date = new DateTime();
+$start_date->modify('monday this week');
+
+$end_date = new DateTime();
+$end_date->modify('sunday this week');
+
+
+echo $start_date->format('d-m-Y') . ' - '. $end_date->format('d-m-Y');
+
+
+
+function getWeekNr(DateTime $date) {
+  return $date->format('W');
+}
+
+
+function getFirstDayOfWeek(int $year, int   $weekNumber) {
+  $date = new DateTime();
+  $date->setISODate($year, $weekNumber, 1);
+
+  if ($date->format('N') != 1) {
+    $date->modify('last monday');
+  }
+
+  return $date;
+}
+
+
+// echo getWeekNr($start_date);
+
+$result = getFirstDayOfWeek(2024, 14);
+
+ 
+echo '<br>';
+echo $result->format('d-m-Y');
+
+
+?>
+
 

@@ -3,7 +3,7 @@
 $options = [
             'home' => 'Home', 
             'orders' => 'Orders', 
-            'customers' => 'Customers',
+            'dashboard' => 'Dashboard',
             'menu_categories' => 'Menu Categories',
             'menu_items' => 'Menu Items'
         ];
