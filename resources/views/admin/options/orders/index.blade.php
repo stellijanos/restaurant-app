@@ -13,11 +13,14 @@
         padding:5px;
     }
 
-    .order-list {
+    #order-list {
         display:flex;
         flex-direction:row;
         justify-content:space-between;
         padding:20px;
+        flex-wrap:wrap;
+        gap:2rem;
+        min-width:370px;
     }
 
     #orders-header {
@@ -27,6 +30,14 @@
         justify-content:flex-start;
         align-items:center;
     }
+
+
+    @media screen and (max-width:1150px) {
+        
+    }
+
+
+
 </style>
 <?php 
     $source = 'admin.options.orders.';
