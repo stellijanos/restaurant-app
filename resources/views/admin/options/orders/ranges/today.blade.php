@@ -1,18 +1,3 @@
-<h1>Today ({{date('d-m-Y')}})</h1>
-
-<?php
-
-$today = new DateTime();
-
-$start = clone $today;
-
-$start->sub(new DateInterval('P7D'));
-
-?>
-
-
-
-
 
 <div id="chart-div" style="width:500px; height: 300px">
     <canvas id="orders-chart"></canvas>
@@ -38,7 +23,8 @@ $start->sub(new DateInterval('P7D'));
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          stepSize: 1
         }
       }
     }

@@ -49,33 +49,6 @@ $end_date->modify('sunday this week');
 echo $start_date->format('d-m-Y') . ' - '. $end_date->format('d-m-Y');
 
 
-
-function getWeekNr(DateTime $date) {
-  return $date->format('W');
-}
-
-
-function getFirstDayOfWeek(int $year, int   $weekNumber) {
-  $date = new DateTime();
-  $date->setISODate($year, $weekNumber, 1);
-
-  if ($date->format('N') != 1) {
-    $date->modify('last monday');
-  }
-
-  return $date;
-}
-
-
-// echo getWeekNr($start_date);
-
-$result = getFirstDayOfWeek(2024, 14);
-
- 
-echo '<br>';
-echo $result->format('d-m-Y');
-
-
 ?>
 
 

@@ -125,7 +125,9 @@ class OrderController extends Controller
     private function getTodayData() {
         $today = $this->todaysDate();
 
-        return array(Order::where('created_at', '=', $today)->count());
+        $chart_data = Order::where(DB::raw('DATE(created_at)'), $today->format('Y-m-d'))->count();
+
+        return [$chart_data];
     }
 
     private function getLast7DaysData() {
@@ -137,9 +139,14 @@ class OrderController extends Controller
                             ->whereBetween('created_at', [$start, $today])
                             ->groupBy(DB::raw('DATE(created_at)'))
                             ->get();
-        
-        return $chartData->pluck('nr', 'date')->toArray();
 
+        $last7days = [];
+
+        for ($i = 6; $i >=0; $i--) {
+            $last7days[ date('Y-m-d',strtotime("-$i days"))] = 0;
+        }
+        
+        return array_merge($last7days, $chartData->pluck('nr', 'date')->toArray());
     }
 
     private function getWeeklyData() {
@@ -189,12 +196,12 @@ class OrderController extends Controller
         print_r($data);
 
 
-        // return view('admin.admin_panel',[
-        //     'page_title' => 'Orders | Admin Panel - Restaurant App',
-        //     'orders' => null,
-        //     'status_counts' => $this->getStatusNrOrders(),
-        //     'chart_data' => $data
-        // ]);
+        return view('admin.admin_panel',[
+            'page_title' => 'Orders | Admin Panel - Restaurant App',
+            'orders' => null,
+            'status_counts' => $this->getStatusNrOrders(),
+            'chart_data' => $data
+        ]);
     }
 
 
