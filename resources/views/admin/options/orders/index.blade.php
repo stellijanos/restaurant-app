@@ -31,13 +31,6 @@
         align-items:center;
     }
 
-
-    @media screen and (max-width:1150px) {
-        
-    }
-
-
-
 </style>
 <?php 
     $source = 'admin.options.orders.';

@@ -1,5 +1,4 @@
 
-
 @extends('layouts.header-footer')
 @section('content')
 
@@ -9,6 +8,7 @@
         display:flex;
         flex-direction:row;
         /* background-color: #3c6e71; */
+        height:calc(100vh - 106px);
     }
 
     #admin-panel-options-list {
@@ -19,8 +19,7 @@
         width: calc(100vw - 280px);
     }
 
-
-    #admin-image{
+    #admin-image {
         display:flex;
         justify-content:center;
         align-items:center;
@@ -33,16 +32,13 @@
 
     <?php   
         $uri = explode("/", $_SERVER['REQUEST_URI']);
-        
         $index = array_search('admin', $uri);
-
         $option = $uri[$index+1] ?? '';
     ?>
 
     @include('admin.admin-sidebar')
     
-    <div id="admin-panel-option">
-
+    <div id="admin-panel-option" class="overflow-auto">
        <?php try { ?>
             @include('admin.options.'.$option.'.index')
          <?php } catch (InvalidArgumentException $e) { ?>

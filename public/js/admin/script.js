@@ -3,7 +3,7 @@
 // add eventlisteners to forms to track the modifications
 
 
-const changeToSubmitButton = input => {
+const changeToSubmitBtn = input => {
     button = document.getElementById('btn_' + input.id);
 
     button.innerText = "Save";
@@ -39,6 +39,4 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', handleClick, false);
     });
 
-
-    
 });
