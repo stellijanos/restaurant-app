@@ -17,13 +17,5 @@
     <h4>(<a href="{{route('home')}}">Go to homepage</a>)</h4>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Cookie.set('cart', '{}', 30);
-        Cookie.set('delivery_type', '', -1);
-        cart.setCartItemsNr();
-    });
-    
-</script>
 
 @endsection
