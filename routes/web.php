@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Auth\LoginController;
@@ -53,7 +54,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin/orders/{range?}', [OrderController::class, 'show_orders'])->name('admin_panel_show_orders');
     Route::put('/admin/orders/{id}',[OrderController::class, 'update_order_status'])->name('update_order_status');
 
-    Route::get('/admin/homepage', [AdminController::class, 'show_homepage_settings'])->name('admin_panel_show_homepage');
+    Route::get('/admin/homepage', [HomepageController::class, 'show_homepage_settings'])->name('admin_panel_show_homepage');
+    Route::post('/admin/homepage', [HomepageController::class, 'create_homepage_image'])->name('create_homepage_image');
 });
 
 Route::fallback(function () {

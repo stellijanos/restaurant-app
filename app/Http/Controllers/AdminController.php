@@ -198,10 +198,4 @@ class AdminController extends Controller
 
 
 
-    public function show_homepage_settings() {
-        return view('admin.options.homepage.index',[
-            'page_title' => 'Settings | Admin Panel | Restaurant App'
-        ]);
-    }
-
 }
