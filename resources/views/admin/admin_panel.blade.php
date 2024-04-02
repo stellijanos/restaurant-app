@@ -25,6 +25,11 @@
         align-items:center;
     }
 
+    .nav-link.active {
+      background-color: grey !important; 
+      color: white; 
+    }
+
 </style>
 
 
