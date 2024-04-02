@@ -3,12 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Food;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+
+
+    private function getEachCategoryNrOfOrders() {
+        return  Category::join('food', 'food.category_id', '=', 'categories.id')
+                        ->join('order_items', 'order_items.food_id', '=', 'food.id')
+                        ->groupBy('categories.name')
+                        ->orderBy(DB::raw('COUNT(categories.name)'), 'desc')
+                        ->select(DB::raw('categories.name as name, COUNT(categories.name) as nr'))
+                        ->get();
+    }
+
+
+    private function getEachMenuItemNrOfOrders() {
+        return Food::select('food.name',DB::raw('SUM(order_items.quantity) as nr'))
+                    ->join('order_items', 'order_items.food_id', '=', 'food.id')
+                    ->groupBy('food.id', 'food.name')
+                    ->orderBy('nr', 'desc')
+                    ->get();
+    }
+
+         // SELECT f.name AS food_name, SUM(oi.quantity) AS total_quantity_ordered
+        // FROM food f 
+        // JOIN order_items oi ON oi.food_id = f.id 
+        // GROUP BY f.name;
+
+
+    private function getMostOrLeast($result, $compare_to) {
+            return array_filter($result, function($value) use ($compare_to) {
+                return $value === $compare_to;
+            });
+    }
 
 
     /**
@@ -19,13 +54,53 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function show_home() {
+
+
+        $num_of_orders = Order::count();
+        $total_price_of_orders = OrderItem::select(DB::raw('price * quantity as total'))->get()->sum('total');
+        $total_number_of_categories = Category::count();
+        $total_number_of_menu_items = Food::count();
+            
+    
+        $total_ordered_categories = $this->getEachCategoryNrOfOrders()->pluck('nr', 'name')->toArray();
+        $firstValue = reset($total_ordered_categories);
+        $lastValue = end($total_ordered_categories);
+
+        $most_ordered_categories = $this->getMostOrLeast($total_ordered_categories, $firstValue);
+        $least_ordered_categories = $this->getMostOrLeast($total_ordered_categories, $lastValue);
+
+        $total_ordered_menu_items = $this->getEachMenuItemNrOfOrders()->pluck('nr', 'name')->toArray();
+        $firstValue = reset($total_ordered_menu_items);
+        $lastValue = end($total_ordered_menu_items);
+
+        $most_ordered_menu_items = $this->getMostOrLeast($total_ordered_menu_items, $firstValue);
+        $least_ordered_menu_items = $this->getMostOrLeast($total_ordered_menu_items, $lastValue);
+
+
+        $statistics = [
+            'num_of_orders' => $num_of_orders,
+            'total_price_of_orders' => $total_price_of_orders ,
+
+            'total_number_of_categories' => $total_number_of_categories,
+            'most_ordered_categories' => $most_ordered_categories,
+            'least_ordered_categories' => $least_ordered_categories,
+
+            'total_number_of_menu_items' => $total_number_of_menu_items,
+            'most_ordered_menu_items' => $most_ordered_menu_items,
+            'least_ordered_menu_items' => $least_ordered_menu_items,
+
+            'total_ordered_categories' => $total_ordered_categories,
+            'total_ordered_menu_items' => $total_ordered_menu_items
+        ];
+
+
         return view('admin.admin_panel', [
-            'page_title' => 'Admin Panel - Restaurant App'
+            'page_title' => 'Admin Panel - Restaurant App',
+            'statistics' => $statistics
         ]);
     }
 
 
-   
 
  
     /**

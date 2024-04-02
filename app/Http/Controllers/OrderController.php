@@ -128,15 +128,20 @@ class OrderController extends Controller
         return [$chart_data];
     }
 
+
+    private function getChartData($start, $end) {
+        return Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
+                    ->whereBetween('created_at', [$start, $end])
+                    ->groupBy(DB::raw('DATE(created_at)'))
+                    ->get();
+    }
+
     private function getLast7DaysData() {
 
         $start = $this->sevenDayAgoDate();
         $today = $this->todaysDate();
 
-        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
-                            ->whereBetween('created_at', [$start, $today])
-                            ->groupBy(DB::raw('DATE(created_at)'))
-                            ->get();
+        $chartData = $this->getChartData($start, $today);
 
         $last7days = [];
 
@@ -151,10 +156,7 @@ class OrderController extends Controller
         $start = $this->todaysDate()->modify('monday this week');
         $end = $this->todaysDate()->modify('sunday this week');
 
-        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
-                            ->whereBetween('created_at', [$start, $end])
-                            ->groupBy(DB::raw('DATE(created_at)'))
-                            ->get();
+        $chartData = $this->getChartData($start, $end);
 
         $week = [];
 
@@ -172,10 +174,7 @@ class OrderController extends Controller
         $firstDayOfMonth = new Datetime(date('Y-m-01'));
         $lastDayOfMonth = new DateTime(date('Y-m-t'));
 
-        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
-                    ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
-                    ->groupBy(DB::raw('DATE(created_at)'))
-                    ->get();
+        $chartData = $this->getChartData($firstDayOfMonth, $lastDayOfMonth);
 
         $month = [];
 
@@ -192,13 +191,9 @@ class OrderController extends Controller
         $firstDayOfYear = new DateTime(date('01.01.Y'));
         $lastDayOfYear = new DateTime(date('31.12.Y'));
 
-        $chartData = Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
-                            ->whereBetween('created_at', [$firstDayOfYear, $lastDayOfYear])
-                            ->groupBy(DB::raw('DATE(created_at)'))
-                            ->get();
+        $chartData = $this->getChartData($firstDayOfYear, $lastDayOfYear);
 
         $year = [];
-
 
         for ($i = 0; $i <= $lastDayOfYear->format('z'); $i++) {
             $day = clone $firstDayOfYear;
@@ -237,12 +232,6 @@ class OrderController extends Controller
             default:
                 $data = array();
         }
-
-
-
-
-        // print_r($data);
-
 
         return view('admin.admin_panel',[
             'page_title' => 'Orders | Admin Panel - Restaurant App',
