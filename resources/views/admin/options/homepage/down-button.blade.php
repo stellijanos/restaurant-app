@@ -1,5 +1,5 @@
 @if($loop->index < count($images)-1)
-    <form action="{{route('patch_menu_image', ['id'=>$image->id])}}" method="POST">
+    <form action="{{route('patch_homepage_image', ['id'=>$image->id])}}" method="POST">
         @csrf
         @method('PATCH')
         <input type="hidden" name="prev" value="{{$images[$loop->index+1]->id}}">

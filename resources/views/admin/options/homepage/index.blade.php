@@ -2,6 +2,8 @@
 
 @section('admin-panel')
 
+<link rel="stylesheet" href="{{asset('/public/css/admin/homepage.css')}}">
+
 <?php $source = 'admin.options.homepage.';?>
 
 @include($source.'bar')

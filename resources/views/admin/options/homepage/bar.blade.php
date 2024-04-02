@@ -1,6 +1,6 @@
-<div id="menu-images-bar">
-    <h1>Menu images: {{count($images)}} (in total)|</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-menu-image">
+<div id="homepage-images-bar">
+    <h1>Homepage images: {{count($images)}} (in total)|</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-homepage-image">
         Add new image
     </button>
 

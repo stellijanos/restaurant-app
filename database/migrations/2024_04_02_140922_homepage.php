@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('image', 64);
             $table->string('caption', 128);
-            $table->integer('order');
+            $table->integer('position');
+            $table->integer('show_on_homepage')->default(1);
             $table->timestamps();
         });
     }

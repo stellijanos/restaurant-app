@@ -1,0 +1,67 @@
+#homepage-images-bar {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+
+
+#input-image {
+    height:40px;
+    border-radius:5px;
+}
+
+#input-image-button {
+    height:40px;
+    margin-top:-5px;
+}
+
+
+#image-listing {
+    /* background-color:blue; */
+    max-height:calc(100vh - 240px);
+    user-select:none;
+}
+
+
+.homepage-image-block {
+    background-color:rgba(211, 211, 211, 0.6);
+    margin:10px;
+    padding:10px;
+    justify-content:space-between;
+}
+
+.homepage-image-form-block, .homepage-image-position-block{
+    gap:1rem;
+}
+
+.homepage-image-block, .homepage-image-name-block, .homepage-image-form-block, .homepage-image-position-block {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+
+
+.homepage-image-name-block>input {
+    height:40px;
+    border-radius: 5px 0 0 5px;
+}
+
+.homepage-image-name-block>button {
+    height:40px;
+    border-radius:0 5px 5px 0;
+}
+
+
+.homepage-items-block {
+    display:flex;
+    flex-direction:column;
+}
+
+
+.form-add-homepage-item {
+    display:flex;
+    flex-direction:row;
+    margin:10px;
+    gap:1rem;
+}
+
