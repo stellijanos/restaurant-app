@@ -1,3 +1,7 @@
+
+@extends('layouts.admin')
+@section('admin-panel')
+
 <style>
     #charts {
         display:flex;
@@ -148,3 +152,5 @@ const menu_item_config = {
 const menu_item_chart = document.getElementById('menu-items-chart');
 new Chart(menu_item_chart, menu_item_config);
 </script>
+
+@endsection

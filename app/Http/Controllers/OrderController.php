@@ -245,7 +245,7 @@ class OrderController extends Controller
     function show_orders_by_status($status) {
         $status = filter_var($status, FILTER_SANITIZE_STRING);
 
-        return view('admin.admin_panel',[
+        return view('admin.options.orders.index',[
             'page_title' => 'Orders | Admin Panel - Restaurant App',
             'orders' => Order::where('status', $status)->orderBy('updated_at')->with('orderItems')->get(),
             'current_status' => $status,

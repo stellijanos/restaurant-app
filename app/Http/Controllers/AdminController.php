@@ -106,7 +106,7 @@ class AdminController extends Controller
         ];
 
 
-        return view('admin.admin_panel', [
+        return view('admin.options.home.index', [
             'page_title' => 'Admin Panel - Restaurant App',
             'statistics' => $statistics
         ]);
