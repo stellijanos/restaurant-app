@@ -2,6 +2,7 @@
 <?php
 $options = [
             'home' => 'Home', 
+            'homepage' => 'Homepage Settings',
             'orders' => 'Orders',
             'menu_categories' => 'Menu Categories',
             'menu_items' => 'Menu Items'
@@ -9,7 +10,6 @@ $options = [
 ?>
 
 <script type="text/javascript" src="{{asset('/public/js/admin/script.js')}}"></script>
-
 
 <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;" id="admin-panel-options-list">
     <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">

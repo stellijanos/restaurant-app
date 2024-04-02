@@ -114,21 +114,6 @@ class AdminController extends Controller
 
 
 
- 
-    /**
-     * Display the customers page of the admin panel.
-     * 
-     * This method returns a view that represents the customers page of the admin panel.
-     * 
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function show_dashboard() {
-        return view('admin.admin_panel',[
-            'page_title' => 'Admin Panel - Restaurant App'
-        ]);
-    }
-
-
     /**
      * Display the menu page of the admin panel.
      * 
@@ -209,6 +194,14 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with(['message' => 'Successfully updated']);
+    }
+
+
+
+    public function show_homepage_settings() {
+        return view('admin.options.homepage.index',[
+            'page_title' => 'Settings | Admin Panel | Restaurant App'
+        ]);
     }
 
 }

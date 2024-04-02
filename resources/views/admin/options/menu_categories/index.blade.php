@@ -1,3 +1,6 @@
+@extends('layouts.admin')
+
+@section('admin-panel')
 <link rel="stylesheet" href="{{asset('/public/css/admin/menu_categories.css')}}">
 
 <?php $source = 'admin.options.menu_categories.';?>
@@ -10,3 +13,5 @@
         @include($source.'list-all')
     @endif
 </div>
+
+@endsection

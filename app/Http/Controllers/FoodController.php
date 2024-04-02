@@ -29,7 +29,7 @@ class FoodController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
      public function show_menu_items() {
-        return view('admin.admin_panel',[
+        return view('admin.options.menu_items.index',[
             'page_title' => 'Admin Panel - Restaurant App',
             'categories' => $this->getNrOfFoodForEachCategory(),
             'foods' => null,

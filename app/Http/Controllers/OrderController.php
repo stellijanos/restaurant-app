@@ -233,14 +233,13 @@ class OrderController extends Controller
                 $data = array();
         }
 
-        return view('admin.admin_panel',[
+        return view('admin.options.orders.index',[
             'page_title' => 'Orders | Admin Panel - Restaurant App',
             'orders' => null,
             'status_counts' => $this->getStatusNrOrders(),
             'chart_data' => $data
         ]);
     }
-
 
 
     function show_orders_by_status($status) {

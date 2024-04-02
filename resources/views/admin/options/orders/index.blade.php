@@ -1,3 +1,6 @@
+@extends('layouts.admin')
+
+@section('admin-panel')
 
 <style>
     #list-all-orders {
@@ -62,3 +65,5 @@
     });
 
 </script>
+
+@endsection

@@ -20,7 +20,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function show() {
-        return view('admin.admin_panel', [
+        return view('admin.options.menu_categories.index', [
             'page_title' => 'Admin Panel - Restaurant App', 
             'categories' => Category::orderBy('menu_position')->get()
         ]);
