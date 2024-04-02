@@ -15,6 +15,11 @@ class AdminController extends Controller
 {
 
 
+    /**
+     * Get the number of orders for each category.
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     private function getEachCategoryNrOfOrders() {
         return  Category::join('food', 'food.category_id', '=', 'categories.id')
                         ->join('order_items', 'order_items.food_id', '=', 'food.id')
@@ -25,6 +30,11 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * Get the number of orders for each menu item.
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     private function getEachMenuItemNrOfOrders() {
         return Food::select('food.name',DB::raw('SUM(order_items.quantity) as nr'))
                     ->join('order_items', 'order_items.food_id', '=', 'food.id')
@@ -33,13 +43,15 @@ class AdminController extends Controller
                     ->get();
     }
 
-         // SELECT f.name AS food_name, SUM(oi.quantity) AS total_quantity_ordered
-        // FROM food f 
-        // JOIN order_items oi ON oi.food_id = f.id 
-        // GROUP BY f.name;
 
-
-    private function getMostOrLeast($result, $compare_to) {
+    /**
+     * Filter an array to get all the elements equal to a specific value.
+     * 
+     * @param array $result the array to filter.
+     * @param string $compare_to the specific value to compare against.
+     * @return array the filtered array.
+     */
+    private function getMostOrLeast(array $result, string $compare_to) {
             return array_filter($result, function($value) use ($compare_to) {
                 return $value === $compare_to;
             });
@@ -49,12 +61,12 @@ class AdminController extends Controller
     /**
      * Display the home page of the admin panel.
      * 
-     * This methods returns a view that represents the home page of the admin panel.
+     * This methods retrieves various statistics related to orders, categories and menu items 
+     * and returns a view representing the home page of the admin panel with these statistics.
      * 
      * @return \Illuminate\Contracts\View\View
      */
     public function show_home() {
-
 
         $num_of_orders = Order::count();
         $total_price_of_orders = OrderItem::select(DB::raw('price * quantity as total'))->get()->sum('total');
@@ -117,6 +129,14 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * Display the menu page of the admin panel.
+     * 
+     * This method retrieves categories ordered by their menu position
+     * and returns a view representing the menu page of the admin panel.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
     public function show_edit_menu() {
         return view('admin.admin_panel', [
             'page_title' => 'Admin Panel - Restaurant App',
@@ -124,11 +144,24 @@ class AdminController extends Controller
         ]);
     }
 
-
-    private function isCorrectPassword($password) {
+    /**
+     * Checks if the user input password equals the actual hashed password.
+     * 
+     * @param string $password the hashed password
+     * @return bool true if they are equal, false otherwise
+     */
+    private function isCorrectPassword(string $password) {
         return Hash::check(request()->get('current_password'), $password);
     }
 
+    /**
+     * Update user profile information.
+     * 
+     * This method validates user input for updating profile information  such as name, email, password.
+     * It updates the users information accordingly and handles profile picture updates.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update_profile() {
 
         request()->validate([
@@ -149,11 +182,8 @@ class AdminController extends Controller
             request()->validate([
                 'confirm_password' => 'same:new_password'
             ]);
-
             $new_password = request()->get('new_password');
-
             $user->password = Hash::make($new_password);
-
         }
 
 
@@ -171,20 +201,14 @@ class AdminController extends Controller
             }
             
             Storage::putFileAs('public/images/profile/', $file, $file_name);
-
             $user->image = $file_name;
         }
 
-
         $user->name = request()->get('name');
         $user->email = request()->get('email');
-
         $user->save();
 
-
         return redirect()->back()->with(['message' => 'Successfully updated']);
-
     }
 
 }
-
