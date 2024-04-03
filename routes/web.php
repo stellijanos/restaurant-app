@@ -22,12 +22,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[RestaurantController::class, 'show_menu'])->name('home');
+Route::get('/disclaimer', [RestaurantController::class, 'show_disclaimer'])->name('disclaimer');
 Route::get('/login', [LoginController::class, 'show_login'])->name('show_login');
 Route::post('/login',[LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
 Route::get('/checkout', [CartController::class, 'show_checkout'])->name('show_checkout');
-Route::post('/checkout', [OrderController::class, 'create_order'])->name('place-order');
+Route::post('/checkout', [OrderController::class, 'create'])->name('place-order');
 Route::get('/order-successful',[OrderController::class, 'order_successful'])->name('order-successful');
 
 

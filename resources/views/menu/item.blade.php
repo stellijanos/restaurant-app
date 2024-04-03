@@ -3,7 +3,7 @@
     @foreach($category->food as $food)
         <div class="menu-category-item-block" data-bs-toggle="modal" data-bs-target="#view-menu-item-{{$food->id}}">
             <div class="menu-item-image-div">
-                <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="{{$food->name}}">
+                <img class="img-fluid" src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="{{$food->name}}">
             </div>
             <div class="item-details">
                 <p class="name text-truncate">{{$food->name}}</p>
@@ -11,7 +11,6 @@
                 <p class="price">{{$food->price}} &euro;</p>
             </div>
         </div>
-
         @include('menu.menu-item-modal')
     @endforeach
 </div>

@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="image">
-                    <img src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
+                    <img class="img-fluid" src="{{asset('storage/app/public/images/menu_items').'/'.$food->image}}" alt="" width="400", height="400">
                 </div>
                 <div class="infos">
                     <p class="name">{{$food->name}} - {{$food->weight}}g</p>

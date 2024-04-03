@@ -14,7 +14,19 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     
-    public function create_order() {
+
+    /**
+     * Creates an order based on the submitted form data.
+     * validates the form data including delivery type, firstname, lastname, phone, email,
+     * and also street and number if the user chooses delivery option.
+     * Saves the order details into the database, including customer information and shipping address. 
+     * Retrieves the cart items from cookies, calculates the total price then saves the order items into the database.
+     * applies shipping fee if the delivery type is not pickup or the total price is less then 100 (money-unit).
+     * redirescts to order-successful' route to confirm order creation 
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function create() {
 
         request()->validate([
             'delivery-type' => 'required|string'
@@ -89,6 +101,15 @@ class OrderController extends Controller
     }
 
 
+
+    /**
+     * Displays the order success page.
+     * Checks if the previous URL is the 'place-order' route to assure that the user can only access it
+     * when it is redirected from that previous URL.
+     * Returns order successful view that confirms the order creation for the user.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function order_successful() {
 
         if (url()->previous() !== route('place-order')) {
@@ -101,6 +122,16 @@ class OrderController extends Controller
     }
 
 
+
+    /**
+     * Retrieves the number of orders for each (order) status.
+     * Selects the status and counts the occurrences of each status.
+     * Groups the results by status.
+     * Returns a key-value array, where keys are statuses and values are the corresponding
+     * number of order counts.
+     * 
+     * @return array
+     */
     private function getStatusNrOrders() {
         $result = Order::select('status', DB::raw('COUNT(status) as nr'))
                         ->groupBy('status')
@@ -110,16 +141,35 @@ class OrderController extends Controller
     }
 
 
+
+    /**
+     * Returns today's date
+     * 
+     * @return Datetime
+     */
     private function todaysDate() {
         return new Datetime();
     }
 
-    private function sevenDayAgoDate() {
+
+
+    /**
+     * Returns the date that which was 6 days ago
+     * 
+     * @return Datetime
+     */
+    private function sixDayAgoDate() {
         return (new DateTime())->sub(new DateInterval('P7D'));
     }
 
 
 
+    /**
+     * Retrieves the number of orders created (placed) today.
+     * Returns that number.
+     * 
+     * @return array
+     */
     private function getTodayData() {
         $today = $this->todaysDate();
 
@@ -129,6 +179,17 @@ class OrderController extends Controller
     }
 
 
+
+    /**
+     * Retrieves chart data for orders created between the given start and end dates.
+     * Selects the count of orders and the date of creation.
+     * Filters orders based on the creation date falling within the specified range.
+     * Groups the results by the creation date.
+     * 
+     * @param DateTime $start the start date 
+     * @param DateTime $end the end date
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     private function getChartData($start, $end) {
         return Order::select(DB::raw('COUNT(created_at) as nr'),DB::raw('DATE(created_at) as date'))
                     ->whereBetween('created_at', [$start, $end])
@@ -136,9 +197,19 @@ class OrderController extends Controller
                     ->get();
     }
 
+
+
+    /**
+     * Retrieves chart data for the last 7 days (inclusive today).
+     * Calculates the start and end dates for the last 7 days
+     * Iterates over the last 7 days and initializes each day with a count of 0.
+     * Merges the fetched chart data with the initialized array, replacing counts for corresponding dates.
+     * 
+     * @return array
+     */
     private function getLast7DaysData() {
 
-        $start = $this->sevenDayAgoDate();
+        $start = $this->sixDayAgoDate();
         $today = $this->todaysDate();
 
         $chartData = $this->getChartData($start, $today);
@@ -152,6 +223,18 @@ class OrderController extends Controller
         return array_merge($last7days, $chartData->pluck('nr', 'date')->toArray());
     }
 
+
+
+    /**
+     * Retrieves chart data for the current week.
+     * Calculates the start and end dates for the current week (monday - sunday)
+     * fetches chart data for the specified date range using "getChartData()" method
+     * Initializes an array to hold the data for the current week.
+     * Iterates over each day of the week and initializes each day with a count of 0.
+     * Merges the fetched chart data with the initialized array, replacing counts for corresponding dates.
+     * 
+     * @return array
+     */
     private function getWeeklyData() {
         $start = $this->todaysDate()->modify('monday this week');
         $end = $this->todaysDate()->modify('sunday this week');
@@ -169,6 +252,18 @@ class OrderController extends Controller
         return array_merge($week, $chartData->pluck('nr', 'date')->toArray());
     }
 
+
+
+    /**
+     * Retrieves chart data for the current month.
+     * Calculates the first and last days of the current month.
+     * Fetches chart data for the entire month using the "getChartData()" method.
+     * Initializes an array to hold the data for each day of the month.
+     * Iterates over each day of the month and initializes each day with a count of 0.
+     * Merges the fetched chart data with the initialized array, replacing counts for corresponding dates.
+     * 
+     * @return array
+     */
     private function getMonthlyData() {
 
         $firstDayOfMonth = new Datetime(date('Y-m-01'));
@@ -187,6 +282,18 @@ class OrderController extends Controller
         return array_merge($month, $chartData->pluck('nr', 'date')->toArray());
     }
 
+
+
+    /**
+     * Retrieves chart data for the current year.
+     * Calculates the first and last days (dates) of the current year.
+     * Fetches chart data for the entire year using the "getChartData()" method.
+     * Initializes an array to hold the data for each day of the year.
+     * Iterates over each day of the year and initializes each day with a count of 0.
+     * merges the fetched chart data with the initialized array, replacing counts for corresponding dates.
+     * 
+     * @return array
+     */
     private function getYearlyData() {
         $firstDayOfYear = new DateTime(date('01.01.Y'));
         $lastDayOfYear = new DateTime(date('31.12.Y'));
@@ -204,9 +311,10 @@ class OrderController extends Controller
         return array_merge($year, $chartData->pluck('nr', 'date')->toArray());
     }
 
+
+
     /**
      * Display the orders page of the admin panel.
-     * 
      * This method returns a view that represents the orders page of the admin panel.
      * 
      * @return \Illuminate\Contracts\View\View
@@ -242,6 +350,14 @@ class OrderController extends Controller
     }
 
 
+    /**
+     * Displays orders filtered by the specified status.
+     * Sanitizes the input status string.
+     * Returns the view to display orders with the specified status along with relevant data.
+     * 
+     * @param string $status the status of orders to filter by.
+     * @return \Illuminate\View\View
+     */
     function show_orders_by_status($status) {
         $status = filter_var($status, FILTER_SANITIZE_STRING);
 
@@ -254,6 +370,18 @@ class OrderController extends Controller
     }
 
 
+    /**
+     * Updates the status of the specified order.
+     * Validates the incoming request data, eunsuring the "status" field is provided and is a string.
+     * sanitizes the input order Id.
+     * 
+     * attempts to find the order with the specified Id; if nt found, throws a 404 error.
+     * updates the status of the order with the sanitized status value from the request.
+     * redirects back to the previous page after updating the order status.
+     * 
+     * @param string #id the Id of the order to update.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update_order_status($id) {
         
         request()->validate([

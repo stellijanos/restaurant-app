@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Storage;
 class FoodController extends Controller
 {
 
+
+    /**
+     * retrieves the number of food items for each category
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     private function getNrOfFoodForEachCategory() {
         return Category::leftJoin('food', 'categories.id', '=', 'food.category_id')
                         ->select('categories.id as id','categories.name as name', DB::raw('COUNT(food.id) as count'))
@@ -91,7 +97,7 @@ class FoodController extends Controller
     }
 
 
-   
+    
     /**
      * Create a new menu item
      * 

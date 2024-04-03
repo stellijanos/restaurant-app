@@ -1,6 +1,12 @@
 
 class CartUI {
 
+    /**
+     * sets the cart quanttity element tag to the specified number.
+     * 
+     * @param {Number} nr , the number to set as the cart quantity
+     */
+
     setCartNrElementsTag(nr) {
         let cart_nr_elements_tag = document.getElementById('cart-quantity');
         cart_nr_elements_tag.innerText = nr;
