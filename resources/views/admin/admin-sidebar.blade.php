@@ -1,8 +1,7 @@
 
 <?php
 $options = [
-            'home' => 'Home', 
-            'homepage' => 'Homepage Settings',
+            'home' => 'Home',
             'orders' => 'Orders',
             'menu_categories' => 'Menu Categories',
             'menu_items' => 'Menu Items'

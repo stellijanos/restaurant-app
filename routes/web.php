@@ -21,11 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[RestaurantController::class, 'index'])->name('home');
+Route::get('/',[RestaurantController::class, 'show_menu'])->name('home');
 Route::get('/login', [LoginController::class, 'show_login'])->name('show_login');
 Route::post('/login',[LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/menu', [RestaurantController::class, 'show_menu'])->name('show_menu');
 Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
 Route::get('/checkout', [CartController::class, 'show_checkout'])->name('show_checkout');
 Route::post('/checkout', [OrderController::class, 'create_order'])->name('place-order');
@@ -54,11 +53,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/admin/orders/{range?}', [OrderController::class, 'show_orders'])->name('admin_panel_show_orders');
     Route::put('/admin/orders/{id}',[OrderController::class, 'update_order_status'])->name('update_order_status');
 
-    Route::get('/admin/homepage', [HomepageController::class, 'show_homepage_settings'])->name('admin_panel_show_homepage');
-    Route::post('/admin/homepage', [HomepageController::class, 'create'])->name('create_homepage_image');
-    Route::put('/admin/homepage/{id}', [HomepageController::class, 'update'])->name('update_homepage_image');
-    Route::patch('/admin/homepage/{id}', [HomepageController::class, 'patch'])->name('patch_homepage_image');
-    Route::delete('/admin/homepage/{id}', [HomepageController::class, 'delete'])->name('delete_homepage_image');
 });
 
 Route::fallback(function () {

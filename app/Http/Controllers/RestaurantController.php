@@ -4,24 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Food;
+use App\Models\HomepageImage;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-
-
-    /**
-     * Displays the home page
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index() {
-
-        
-
-        return view('home.index',  ['page_title' => 'Home - Restaurant App']);
-    }
-
 
     /**
      *
@@ -39,10 +26,8 @@ class RestaurantController extends Controller
         }])
         ->get();
         return view('menu.index', [
-            'page_title' => 'Menu - Restaurant app',
+            'page_title' => 'Home - Restaurant app',
             'categories' => $categories
         ]);
     }
-
 }
-
