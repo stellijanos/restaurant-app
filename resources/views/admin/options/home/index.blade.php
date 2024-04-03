@@ -61,7 +61,7 @@ function print_data($array) {
             <ul>
                 <li>Total orders: {{$statistics['num_of_orders']}}</li>
                 <li>Total price of orders: {{number_format($statistics['total_price_of_orders'], 2)}} &euro;</li>
-                <li>Order average price: {{number_format($statistics['total_price_of_orders'] / $statistics['num_of_orders'], 2)}}</li>
+                <li>Order average price: {{$statistics['num_of_orders'] == 0 ? '0.00' : number_format($statistics['total_price_of_orders'] / $statistics['num_of_orders'], 2)}} &euro;</li>
             </ul>
         </div>
         <div id="menu-categories">
