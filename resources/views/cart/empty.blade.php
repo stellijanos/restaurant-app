@@ -13,5 +13,5 @@
 </style>
 
 <div id="empty-cart">
-    <a href="{{route('show_menu')}}"><button class="btn btn-secondary">Empty cart<br>Grab some food :)</button></a>
+    <a href="{{route('home')}}"><button class="btn btn-secondary">Empty cart<br>Grab some food :)</button></a>
 </div>

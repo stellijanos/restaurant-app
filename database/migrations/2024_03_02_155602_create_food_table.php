@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('name', 64);
             $table->decimal('price', 10, 2);
             $table->integer('weight');
-            $table->unsignedBigInteger('category_id');
             $table->string('image', 64);
+            $table->integer('menu_position');
+            $table->integer('show_on_menu');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
