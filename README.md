@@ -108,4 +108,4 @@
 <br><br><br><br>
 
 
-That's it. It is a very short presentation. If you want to see live usage, contact me on [my website](https://stellijanos.com)
+That's it. It is a very short presentation. If you want to see live usage, contact me on [my website.](https://stellijanos.com/cl=gh)
