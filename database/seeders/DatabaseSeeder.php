@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Janos',
-            'email' => 'janos@stellijanos.com',
-            'password' => Hash::make('123'),
-            'image' => 'blank-profile-picture.png'
+            'name' => '',
+            'email' => '',
+            'password' => '',
+            'image' => ''
         ]);
     }
 }
