@@ -4,4 +4,3 @@
 
 ## About this app
 
-<!-- The restaurant app its a basic  -->
