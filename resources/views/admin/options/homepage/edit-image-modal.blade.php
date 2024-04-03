@@ -18,7 +18,7 @@
                
                 <div class="form-floating mb-3" id="change_item_image-{{$image->id}}">
                     <label for="new_image">Change image(.jpg, .jpeg, .png)</label><br><br>
-                    <input type="file" name="new_image" id="new_image" class="form-control">
+                    <input type="file" name="new_image" class="form-control">
                 </div>
 
                 <div class="form-check">

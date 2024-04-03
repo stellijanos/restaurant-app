@@ -51,7 +51,7 @@ class FoodController extends Controller
     public function show_by_category($id) {
         try {
             $category = Category::findOrFail($id);
-            return view('admin.admin_panel',[
+            return view('admin.options.menu_items.index',[
                 'page_title' => 'Admin Panel - Restaurant App',
                 'foods' => Food::where('category_id', $id)->orderBy('menu_position')->get(),
                 'categories' => $this->getNrOfFoodForEachCategory(),

@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top" aria-label="Fourth navbar example">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="{{route('home')}}">Restaurant App |</a>
@@ -30,9 +31,14 @@
 					</li>
 				@endif
 			</ul>
-			<form role="search">
-				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
-			</form>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="tel:+407********">Tel: +407********</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="mailto:contact@restaurant">Email: contact@restaurant</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </nav>

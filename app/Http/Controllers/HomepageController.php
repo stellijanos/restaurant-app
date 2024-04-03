@@ -42,11 +42,37 @@ class HomepageController extends Controller
     }
 
 
-    public function update() {
+    public function update($id) {
 
+        request()->validate([
+            'caption' => 'required|string|min:1|max:64'
+        ]);
 
+        try {
 
-        return redirect()->back()->with('message', 'Updated successfully!');
+            $image = HomepageImage::findOrFail($id);
+
+            $image->caption = request()->get('caption');
+            $image->show_on_homepage = request()->has('show') ? 1 : 0;
+
+            if (request()->hasFile('new_image')) {
+
+                $file = request()->file('new_image');
+                $file_name = bin2hex(random_bytes(10)).'.'. $file->getClientOriginalExtension();
+                
+                Storage::delete('public/images/homepage/'.$image->image);
+                Storage::putFileAs('public/images/homepage', $file, $file_name);
+    
+                $image->image = $file_name;
+            }
+
+            $image->save();
+
+            return redirect()->back()->with('message', 'Updated successfully!');
+
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 
 

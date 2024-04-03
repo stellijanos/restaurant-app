@@ -46,7 +46,7 @@ $lastDayOfYear = date('31.12.Y');
 
 
 
-<div id="chart-div" style="width:60%; height: 60%; margin:auto; display:flex; justify-content:center; align-items:center">
+<div id="chart-div" style="width:800px; height: 60%; margin:auto; display:flex; justify-content:center; align-items:center">
     <canvas id="orders-chart"></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
