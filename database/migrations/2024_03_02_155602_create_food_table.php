@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('weight');
             $table->string('image', 64);
             $table->integer('menu_position');
-            $table->integer('show_on_menu');
+            $table->integer('show_on_menu')->default(1);
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

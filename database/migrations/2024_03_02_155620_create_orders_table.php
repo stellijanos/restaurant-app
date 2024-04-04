@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email', 64)->nullable(false);
             $table->string('phone', 15)->nullable(false);
             $table->string('address', 64)->nullable(false);
-            $table->string('shipping_fee', 64)->nullable(false);
-            $table->string('status', 64);
+            $table->string('shipping_fee', 64)->default(0);
+            $table->string('status', 64)->default('pending');
             $table->timestamps();
         });
     }
