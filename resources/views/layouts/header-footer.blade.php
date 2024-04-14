@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $page_title }}</title>
         @include('includes.css')
-        <script src="{{asset('/public/js/Cookie.js')}}" type="text/javascript"></script>
+        <script src="{{asset('/public/js/cookie.js')}}" type="text/javascript"></script>
     </head>
     <body>
         @include('includes.navbar')
