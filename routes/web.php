@@ -59,5 +59,3 @@ Route::group(['middleware' => 'auth'], function() {
 Route::fallback(function () {
     abort(404);
 });
-
-
