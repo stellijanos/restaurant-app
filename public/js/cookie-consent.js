@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         Cookie.set("cookie_consent", "accepted", 30);
         Cookie.set("cart", JSON.stringify({}), 30);
         cookieBanner.style.display = "none";
+        window.location.reload();
     });
 
     declineBtn.addEventListener("click", function() {
